@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "BrXuEWKJfik7fDoKn213Zfeup8zurGsmxeXpLqKEAOlbhLSKLnjGOi3pTzKnFIjvm7IzDaQ4Ewd3BfkLCzkdaA==",
+  "success": true,
+  "projectFilePath": "/Volumes/libraries/Iot/Bài tập tuần/Week1/Week1/Week1.csproj",
+  "expectedPackageFiles": [
+    "/Users/BuiDong/.nuget/packages/newtonsoft.json/12.0.3/newtonsoft.json.12.0.3.nupkg.sha512"
+  ],
+  "logs": []
+}

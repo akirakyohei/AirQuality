@@ -1,0 +1,8 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "/Users/BuiDong/.dotnet/store/|arch|/|tfm|",
+      "/Users/BuiDong/.nuget/packages"
+    ]
+  }
+}
