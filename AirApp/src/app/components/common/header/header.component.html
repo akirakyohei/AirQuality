@@ -1,0 +1,30 @@
+<nav id="nav-header" class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+    <img class="img-logo" src="../../../../assets/img/logo.png">
+    <h1 class="d-lg-none title-logo">Air Quality</h1>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item " [routerLinkActive]="['active']">
+                <a class="nav-link " [routerLink]="['/home']">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link" [routerLink]="['/places']">Places</a>
+            </li>
+
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link " [routerLink]="['/about']">About us</a>
+            </li>
+            <li class="nav-item" [routerLinkActive]="['active']">
+                <a class="nav-link" [routerLink]="['/information']">Information air</a>
+            </li>
+        </ul>
+        <h1 class="mr-auto d-none d-lg-block title-logo">Air Quality</h1>
+        <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+        </form>
+    </div>
+</nav>

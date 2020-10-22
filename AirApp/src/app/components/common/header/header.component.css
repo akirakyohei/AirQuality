@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+.img-logo {
+    width: 4%;
+    height: 4%;
+}
+
+.title-logo {
+    font-family: 'Dancing Script', cursive;
+    color: cornsilk;
+}
+
+@media screen and (max-width:768px) {
+    .img-logo {
+        width: 10%;
+        height: 10%;
+    }
+}

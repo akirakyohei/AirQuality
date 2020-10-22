@@ -1,0 +1,11 @@
+{
+    "typescript.autoClosingTags": false,
+    "javascript.autoClosingTags": false,
+    "auto-rename-tag.activationOnLanguage": [
+
+        "*"
+    ],
+    "path-intellisense.autoSlashAfterDirectory": true,
+    "typescript.tsserver.log": "normal",
+    "typescript.tsserver.trace": "messages"
+}

@@ -1,0 +1,31 @@
+.province-img {
+    width: 40px;
+    height: 100%;
+}
+
+.bg-black {
+    background-color: black;
+    color: white;
+}
+
+.province-box {
+    display: flex;
+    justify-content: space-around;
+}
+
+.provice-border-left {
+    border-left: 2px solid lightblue;
+}
+
+.province-border-radius {
+    border-radius: 8% 8% 8% 8% / 31% 31% 31% 30%;
+}
+
+td,
+th {
+    border: 0px;
+}
+
+.province-hanh-chinh {
+    width: 100%;
+}

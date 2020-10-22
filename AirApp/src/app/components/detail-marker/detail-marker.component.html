@@ -1,0 +1,23 @@
+<div class="container-fluid vh-100  mx-auto">
+    <div class="row h-100 justify-content-center">
+        <div class="col-12 col-lg-7 mt-3 ml-lg-3 bg-dark text-light border-index">
+            <div class="detail-title mt-3 align-items-center text-center ">
+                <h2>Hà Tĩnh</h2>
+                <div class="update-time">2020-10-22 01:08</div>
+            </div>
+            <div class="detail-aqi-chart">
+                <ngx-gauge [min]="gaugeOptions.min" [max]="gaugeOptions.max" [cap]="gaugeOptions.cap" [type]="gaugeOptions.type" [thick]="gaugeOptions.thick" [thresholds]="gaugeOptions.thresholds" [value]="gaugeValue" [label]="gaugeOptions.label">
+                </ngx-gauge>
+                <div class="muc-air-quality text-center">good</div>
+            </div>
+            <div class="detail-index-chart">
+                <!-- <ngx-charts-linear-gauge #CO2 [view]="lineargaugeOption.view" [min]="lineargaugeOption.min" [scheme]="lineargaugeOption.scheme" [units]="lineargaugeOption.unit" [value]="co2_value.value">
+
+                </ngx-charts-linear-gauge> -->
+            </div>
+        </div>
+        <div class="col-12 col-lg-4 mt-3 ml-lg-3 bg-dark border-index">
+
+        </div>
+    </div>
+</div>
