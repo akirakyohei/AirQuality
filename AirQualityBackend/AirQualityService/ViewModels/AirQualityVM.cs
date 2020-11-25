@@ -3,7 +3,7 @@ namespace AirQualityService.ViewModels
 {
     public class AirQualityVM
     {
-        public int AirQualityId { get; set; }
+        public string PointId { get; set; }
 
         public DateTime DateTime { get; set; }
 
@@ -11,12 +11,18 @@ namespace AirQualityService.ViewModels
 
         public float Humidity { get; set; }
 
-        public float PPM { get; set; }
+        public float O3 { get; set; }
 
-        public int PM1_0 { get; set; }
+        public float CO { get; set; }
 
-        public int PM2_5 { get; set; }
+        public float NO2 { get; set; }
 
-        public int PM10_0 { get; set; }
+        public float SO2 { get; set; }
+
+        public float PM2_5 { get; set; }
+
+        public float PM10_0 { get; set; }
+
+        public int AQIInHour { get; set; }
     }
 }

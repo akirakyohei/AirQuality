@@ -1,4 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { NgxNotifierService } from 'ngx-notifier';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +9,15 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'AirApp';
 
-
+constructor(private notifier:NgxNotifierService){}
   ngAfterViewInit(): void {
-    const main = document.getElementById('main');
-    const header = document.getElementById('nav-header');
-    main.style.top = '68px';
+    // const main = document.getElementById('main');
+    // const header = document.getElementById('header-nav');
+    //  main.style.top = '4.6rem';
+
    // main.style.height = (window.screen.height - 90).toString();
     //   window.screen.height - Number.parseInt(header.style.height)
     // ).toString();
-
   }
 
   ngOnInit() {

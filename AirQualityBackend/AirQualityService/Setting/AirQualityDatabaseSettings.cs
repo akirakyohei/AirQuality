@@ -8,6 +8,7 @@ namespace AirQualityService.Setting
         string PointCollectionName { get; set; }
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
+        string ReportAirQualityByDate { get; set; }
 
     }
 
@@ -18,5 +19,6 @@ namespace AirQualityService.Setting
         public string PointCollectionName { get; set; }
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
+        public string ReportAirQualityByDate { get; set; }
     }
 }

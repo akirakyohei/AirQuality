@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/home.css">
+</head>
+
+<body>
+
+
+    <header class=" position-sticky fixed-top">
+        <div class="d-flex justify-content-center w-100 bg-dark text-light">
+            <div class="mx-auto">
+                <h1 style="font-family: 'Dancing Script', cursive;">AirQuality</h1>
+            </div>
+        </div>
+    </header>
+
+    <div id="alert" class="alert alert-dismissible fade alert-success alert-inf" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true">&times;</span>
+  </button>
+        <strong id="alert-notifier"></strong>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12 p-0 col-md-6 mx-auto">
+                <div class="accordion" id="accordionExample">
+                    <div class="card">
+                        <div class="card-header bg-dark" id="headingOne">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left text-light" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                          <i class="fa fa-user" aria-hidden="true"></i>  <span class="ml-2">Account</span>
+                          </button>
+                            </h2>
+                        </div>
+
+                        <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="">Username</label>
+                                        <input type="text" class="form-control" name="" id="username" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Password</label>
+                                        <input type="password" class="form-control" name="" id="password" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelAccountConfig">
+                                    Save
+                                    </button>
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modelAccountConfig" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Save confirm</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Save Account?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-primary" onclick="updateAccount()">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="card-header bg-dark" id="headingTwo">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                            <i class="fa fa-anchor" aria-hidden="true"></i> <span class="ml-2">MQTT Config</span>
+                          </button>
+                            </h2>
+                        </div>
+                        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <form>
+                                    <div class="form-group">
+                                        <label for="">Device Id</label>
+                                        <input type="text" class="form-control" name="" id="device-id" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="">Token</label>
+                                        <input type="text" class="form-control" name="" id="token" aria-describedby="helpId" placeholder="">
+                                    </div>
+                                    <!-- Button trigger modal -->
+                                    <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#modelMQTT">
+                                     Save
+                                   </button>
+
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="modelMQTT" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Save Confirm</h5>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                           <span aria-hidden="true">&times;</span>
+                                                       </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    Save mqtt config?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                    <button type="button" class="btn btn-primary" onclick="updateMqtt()">Save</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-dark" id="headingFour">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour">
+                                 <i class="fa fa-cog" aria-hidden="true"></i>   <span class="ml-2">Info</span>
+                          </button>
+                            </h2>
+                        </div>
+                        <div id="collapseFour" class="collapse" aria-labelledby="headingFour" data-parent="#accordionExample">
+                            <div class="card-body ">
+                                <table class="table d-flex justify-content-center  table-striped table-inverse table-responsive">
+                                    <tbody>
+                                        <tr>
+                                            <td scope="row">Username</td>
+                                            <td id="user-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Password</td>
+                                            <td id="pass-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">DeviceId</td>
+                                            <td id="devi-value"></td>
+                                        </tr>
+                                        <tr>
+                                            <td scope="row">Token</td>
+                                            <td id="toke-value"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header bg-dark" id="headingThree">
+                            <h2 class="mb-0">
+                                <button class="btn btn-block text-left text-light collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                               <i class="fa fa-wrench" aria-hidden="true"></i>   <span class="ml-2">Tools</span>
+                          </button>
+                            </h2>
+                        </div>
+                        <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                            <div class="card-body">
+                                <!-- Button trigger modal -->
+                                <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#modelId">
+                                  Logout
+                                </button>
+
+                                <!-- Modal -->
+                                <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                            </div>
+                                            <div class="modal-body">
+                                                Do you want to logout?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">NO</button>
+                                                <button type="button" class="btn btn-primary" onclick="logout()">OK</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+    <script src="./js/home.js"></script>
+</body>
+
+</html>

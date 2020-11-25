@@ -2,15 +2,18 @@
 using System.Collections.Generic;
 using AirQualityService.model;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
+using MongoDB.Bson;
 
 namespace AirQualityService.Model
 {
     public class Point
     {
-        [BsonId]
-        [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
-        public int PointId { get; set; }
-        public int CityId { get; set; }
+        [BsonId(IdGenerator = typeof(GuidGenerator))]
+        [BsonRepresentation(BsonType.String)]
+        public Guid PointId { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid CityId { get; set; }
         public string NameLocation { get; set; }
         public string Address { get; set; }
         public string Lat { get; set; }

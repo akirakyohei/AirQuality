@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Net.Mime;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AirQualityService.Data;
+using AirQualityService.Helpers.@interface;
 using AirQualityService.Interface.Services;
 using AirQualityService.model;
 using AirQualityService.Setting;
@@ -22,12 +24,17 @@ namespace AirQualityService.Services
         private IMqttClient mqttClient;
         private IMqttClientOptions options;
         private readonly AirQualityContext _context;
-        public MqttClientService(AirQualityContext context, IMqttClientOptions options)
+        private IAQIHelper _AQIHeper;
+        private static DateTime dateNow;
+        public MqttClientService(AirQualityContext context, IMqttClientOptions options, IAQIHelper aQIHelper)
         {
+            _AQIHeper = aQIHelper;
             _context = context;
             this.options = options;
             mqttClient = new MqttFactory().CreateMqttClient();
             ConfigureMqttClient();
+
+            dateNow = DateTime.Now;
         }
 
         private void ConfigureMqttClient()
@@ -47,21 +54,30 @@ namespace AirQualityService.Services
             var json = Encoding.UTF8.GetString(payload);
 
             JObject jObject = JObject.Parse(json);
+            var now = DateTime.Now;
+            //  var nowLocal = DateTime.SpecifyKind(now, DateTimeKind.Local);
+            var nowLocal = now;
+            DateTime dateTime = new DateTime(nowLocal.Year, nowLocal.Month, nowLocal.Day, nowLocal.Hour, 0, 0);
 
+            DateTime dateTime1 = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, dateNow.Hour, 0, 0);
+            dateNow = dateNow.AddHours(1);
             AirQuality air = new AirQuality()
             {
-                PointId = (int)jObject["id"],
-                DateTime = DateTime.Now,
+                PointId = Guid.Parse((string)jObject["id"]),
+                DateTime = dateTime1,
                 Humidity = (float)jObject["humidity"],
                 Temperature = (float)jObject["temperature"],
-                PM1_0 = (int)jObject["pm1_0"],
+                O3 = (float)jObject["O3"],
+                CO = (float)jObject["CO"],
+                NO2 = (float)jObject["NO2"],
+                SO2 = (float)jObject["SO2"],
                 PM2_5 = (int)jObject["pm2_5"],
                 PM10_0 = (int)jObject["pm10_0"],
-                PPM = (int)jObject["PPM"]
 
             };
+            // Console.WriteLine(JObject.FromObject(air).ToString());
 
-            Console.WriteLine(JObject.FromObject(air).ToString());
+            air.AQIInHour = _AQIHeper.GetAQIInHour(air);
             await _context.AirQualities.InsertOneAsync(air);
 
 
@@ -71,8 +87,8 @@ namespace AirQualityService.Services
         {
             Console.WriteLine("connected");
 
-            string payload = "{\"ID\":\"12\"}";
-            await PublishAsync(MQTTClientSettings.instance.TopicPublish, payload, "json");
+            //string payload = "{\"ID\":\"12\"}";
+            //await PublishAsync(MQTTClientSettings.instance.TopicPublish, payload, "json");
 
             var result = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder()
                                                         .WithTopic(MQTTClientSettings.instance.TopicSubscribe)
@@ -82,11 +98,18 @@ namespace AirQualityService.Services
 
         public async Task HandleDisconnectedAsync(MqttClientDisconnectedEventArgs eventArgs)
         {
-
-            mqttClient.UseDisconnectedHandler(x =>
+            try
             {
-                Console.WriteLine("hbhbg" + x.Exception.Message);
-            });
+                mqttClient.UseDisconnectedHandler(x =>
+                {
+                    Console.WriteLine("hbhbg" + x.Exception.Message);
+                });
+            }
+            catch (Exception e)
+            {
+
+            }
+
 
         }
 

@@ -9,6 +9,6 @@ namespace AirQualityService.Data.Interface
         public List<CityVM> GetNameCities();
         public List<CityDetailVM> GetCities();
         public CityDetailVM GetCityDetailbyName(string nameCity);
-        public string GetNameCityById(int id);
+        public string GetNameCityById(Guid id);
     }
 }

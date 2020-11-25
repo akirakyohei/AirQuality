@@ -19,6 +19,15 @@ using AutoMapper;
 using AirQualityService.Helpers;
 using Microsoft.OpenApi.Models;
 using AirQualityService.Services;
+using AirQualityService.Helpers.@interface;
+using Quartz.Spi;
+using Quartz;
+using Quartz.Impl;
+using AirQualityService.ViewModels;
+using AirQualityService.Model;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace AirQualityService
 {
@@ -37,12 +46,12 @@ namespace AirQualityService
 
         // This method gets called by the runtime. Use this method to add services to the container.
 
+        [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-
             services.AddMqttClientHostedService();
-            services.AddSingleton<ExtarmalService>();
+            services.AddScoped<ExtarmalService>();
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(opt =>
             {
@@ -56,17 +65,64 @@ namespace AirQualityService
             });
 
             services.AddCors();
+            services.AddAuthentication(opt =>
+            {
+                opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                opt.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(opt =>
+            {
+                opt.TokenValidationParameters = new Microsoft.IdentityModel.Tokens.TokenValidationParameters
+                {
+                    ValidateIssuer = true,
+                    ValidateAudience = true,
+                    ValidateIssuerSigningKey = true,
+                    ValidIssuer = "jndjfhvdkf",
+                    ValidAudience = "hfbvfhgvklnckjnrubsdx",
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("indfivfglfivfusdfdg"))
+                };
+            });
 
             services.Configure<AirQualityDatabaseSettings>(
                 Configuration.GetSection(nameof(AirQualityDatabaseSettings)));
 
             services.AddSingleton<IAirQualityDatabaseSettings>(opt =>
             opt.GetRequiredService<IOptions<AirQualityDatabaseSettings>>().Value);
+            services.AddTransient<AirQualityContext>();
             services.AddSingleton<ICityReporitory, CityRepository>();
-            services.AddSingleton<IPointRepository, PointRepository>();
             services.AddSingleton<IAirQualityRepository, AirQualityRepository>();
-            services.AddSingleton<AirQualityContext>();
+            services.AddSingleton<IPointRepository, PointRepository>();
+            services.AddSingleton<IReportAirQualityInDayRepository, ReportAirQualityRepository>();
+            services.AddSingleton<IAQIHelper, AQIHelper>();
             services.AddTransient<IInitiallizeData, InitiallizeData>();
+
+            //add quartz service
+            services.AddSingleton<IJobFactory, AwakeUpDeviceJobFactory>();
+            services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
+            services.AddSingleton<AwakeUpDeviceJob>();
+            services.AddSingleton<ReportEndDayJob>();
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(AwakeUpDeviceJob),
+                cronExpression: "0 0 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ? * * *"
+                //cronExpression: "* * * * * ? *"
+                ));
+
+            services.AddSingleton(new JobSchedule(
+                jobType: typeof(ReportEndDayJob),
+                   cronExpression: "0 30 23 ? * * *"
+                //cronExpression: "0/5 * * * * ? *"
+                ));
+            services.AddHttpClient("ibm", config =>
+            {
+
+                config.DefaultRequestHeaders.Add("Content-Type", "application/json");
+                config.DefaultRequestHeaders.Add("Authorization", "Basic YS1mNHZ0OTMtOWRlZHljbW1hazpUVTUpQVJaN3FmQ3dGQ00mKHg=");
+
+            });
+            services.AddScoped<IIBMClientHelper, IBMClientHelper>();
+            services.AddHostedService<QuartzHostedService>();
+
+
             services.AddAutoMapper(config => { config.AddProfile<MapperProfile>(); }, AppDomain.CurrentDomain.GetAssemblies());
 
         }
@@ -84,9 +140,9 @@ namespace AirQualityService
 
             app.UseRouting();
             app.UseCors(config => { config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
-
-            app.UseAuthorization();
             app.UseAuthentication();
+            app.UseAuthorization();
+
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>

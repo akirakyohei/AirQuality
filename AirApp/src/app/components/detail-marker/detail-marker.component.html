@@ -1,23 +1,60 @@
-<div class="container-fluid vh-100  mx-auto">
-    <div class="row h-100 justify-content-center">
-        <div class="col-12 col-lg-7 mt-3 ml-lg-3 bg-dark text-light border-index">
-            <div class="detail-title mt-3 align-items-center text-center ">
-                <h2>Hà Tĩnh</h2>
-                <div class="update-time">2020-10-22 01:08</div>
+<div class="container-fluid vh-100 m-1 align-self-center w-100 ">
+    <div class="row justify-content-center position-relative">
+        <div animateOnScroll animationName="fadeIn" class="animated col-12 col-lg-7 mt-3 pb-3 ml-lg-3 bg-dark text-light border-index">
+            <div class="detail-title mt-md-3 px-3 align-items-center text-center ">
+                <h3 class="province-title mt-4 pt-3">{{namePoint}}</h3>
+                <div class="update-time">{{date | date:'medium'}}</div>
             </div>
-            <div class="detail-aqi-chart">
-                <ngx-gauge [min]="gaugeOptions.min" [max]="gaugeOptions.max" [cap]="gaugeOptions.cap" [type]="gaugeOptions.type" [thick]="gaugeOptions.thick" [thresholds]="gaugeOptions.thresholds" [value]="gaugeValue" [label]="gaugeOptions.label">
-                </ngx-gauge>
-                <div class="muc-air-quality text-center">good</div>
-            </div>
-            <div class="detail-index-chart">
-                <!-- <ngx-charts-linear-gauge #CO2 [view]="lineargaugeOption.view" [min]="lineargaugeOption.min" [scheme]="lineargaugeOption.scheme" [units]="lineargaugeOption.unit" [value]="co2_value.value">
+            <div class="col-12 d-flex align-content-between  mt-4">
+                <div class="detail-aqi-chart">
+                    <ngx-gauge size="200" [min]="airOptions.min" [max]="airOptions.max" [cap]="airOptions.cap" [type]="airOptions.type" [thick]="airOptions.thick" [thresholds]="airOptions.thresholds" [value]="infoAir!=undefined?infoAir.aqiInHour:0" label="Air Quality">
+                    </ngx-gauge>
+                    <div class="muc-air-quality text-center"><span class="p-2 rounded" [ngStyle]="{'background-color':getColorHealthy(infoAir!=undefined? infoAir.aqiInHour :0)}">{{gethealthy(infoAir!=undefined?infoAir.aqiInHour:0)}}</span> </div>
+                </div>
+                <div class="detail-index-chart d-flex d-inline-flex flex-wrap  align-items-center justify-content-between">
 
-                </ngx-charts-linear-gauge> -->
+                    <div class="align-self-center m-2" *ngFor="let item of airIndex">
+                        <app-linear-gauge [min]="item.min" [max]="item.max" [value]="item.value" [name]="item.name" [unit]="item.unit" [thresholds]="airIndexthresholds"></app-linear-gauge>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="m-3 mt-4 border-blue border-top order-1 d-flex flex-column flex-md-row justify-content-between align-content-center w-50 weather-items">
+
+                <div class="weather-item mb-4 mb-md-0">
+                    <div class="temperature-icon icon mr-4">
+                        <i class="fas fa-temperature-high  "></i> </div>
+                    <div class="temperature float-right">{{infoAir!=undefined?infoAir.temperature:0}}<span>℃</span></div>
+                </div>
+                <div class="weather-item">
+                    <div class="humidity-icon icon mr-4"><img width="20" height="20" src="../../../assets/img/aqi/pnghut_humidity-sensor-hygrometer-symbol-air-dew-point_X9gUPvWL5h.png" alt="" srcset=""></div>
+                    <div class="humidity float-right">{{infoAir!=undefined?infoAir.humidity:0}}<span>%</span></div>
+                </div>
             </div>
         </div>
         <div class="col-12 col-lg-4 mt-3 ml-lg-3 bg-dark border-index">
+            <h3 class="list-detail-title text-center text-white">
+                List point in city
+            </h3>
+            <div class="d-flex flex-column pl-4 pr-4" *ngFor="let item of pointInCity">
+                <div class="d-flex justify-content-between py-2">
+                    <div class="text-white overflow-scroll">{{item.pointName}}</div>
+                    <div class="rounded text-white p-1" [ngStyle]="{'background-color': getColorHealthy(item.aqi)}">AQI {{item.aqi}}</div>
+                </div>
 
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center">
+
+        <div animateOnScroll animationName="fadeIn" class="animated col-12 pr-5 pl-5  pt-3 mt-3 pb-3 ml-lg-3 bg-dark text-light border-index">
+            <div class="select-report-box mb-4">
+                <ng-select class="select-report" [(ngModel)]="selectedReport" [clearable]="false" [hideSelected]="true">
+                    <ng-option *ngFor="let item of reports" [value]='item.id'>{{item.name}}</ng-option>
+                </ng-select>
+            </div>
+            <app-line-chart [data]="reportAqi"></app-line-chart>
         </div>
     </div>
 </div>

@@ -55,9 +55,9 @@ namespace AirQualityService.Data
             return cityDetailVMs;
         }
 
-        public string GetNameCityById(int id)
+        public string GetNameCityById(Guid id)
         {
-            var city = _cities.Find(city => city.CityId == id).FirstOrDefault();
+            var city = _cities.Find(city => city.CityId.Equals(id)).FirstOrDefault();
             if (city != null)
             {
                 return city.NameCity;

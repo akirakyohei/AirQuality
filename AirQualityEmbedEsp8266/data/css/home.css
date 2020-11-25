@@ -1,0 +1,23 @@
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+body {
+    background-color: lemonchiffon;
+    position: relative;
+}
+
+.alert-inf {
+    height: 50px;
+    z-index: 3000;
+    height: 80px;
+    right: 0;
+    position: absolute;
+    animation-name: alertInf;
+    animation-duration: 3s;
+}
+
+@keyframes alertInf {
+    0% {
+        opacity: 0.2;
+        width: 0px;
+        overflow: hidden;
+    }
+}

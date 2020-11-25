@@ -1,4 +1,4 @@
-<div class="container mt-4">
+<div class="container mt-4 min-vh-100">
     <div class="row">
         <div class="col-12">
             <nav aria-label="breadcrumb">
@@ -9,52 +9,81 @@
         </div>
 
     </div>
-    <div class="row">
+    <div class="row min-vh-100">
         <div class="col-12 col-lg-6">
-            <table class="table table-dark table-striped province-border-radius">
+            <table class="table table-dark table-striped rounded table-borderless">
                 <tbody>
                     <tr>
                         <th></th>
                         <th></th>
                     </tr>
-                    <tr>
-                        <td>
-                            <div class="province-box">
 
-                                <img class="province-img" src="../../../assets/img/provinces/an_giang.png" onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg')this.src='../../../assets/img/provinces/tinh.jpg'" alt="" srcset="">
-                                <div class="province-name">An Giang</div>
-                            </div>
+                    <ng-template ngFor let-item [ngForOf]="cities" let-i="index" let-even="even">
 
-                        </td>
-                        <td class="provice-border-left">
-                            <div class="province-box">
-                                <img class="province-img" src="../../../assets/img/provinces/an.png" onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg')this.src='../../../assets/img/provinces/tinh.jpg'" alt="" srcset="">
-                                <div class="province-name">Thái Bình</div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>
-                            <div class="province-box">
+                        <tr *ngIf="even">
+                            <td class="province-td" (click)="provinceClick(cities[i].cityId,cities[i].nameCity)">
+                                <div class="province-box">
+                                    <img class="province-img" [defaultImage]="'../../../assets/img/provinces/tinh.jpg'" [lazyLoad]="'../../../assets/img/provinces/'+item.nameCity+'.png'" onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg')this.src='../../../assets/img/provinces/tinh.jpg'"
+                                        alt="" srcset="">
+                                    <div class="province-name">{{item.nameCity}}</div>
+                                </div>
 
-                                <img class="province-img" src="../../../assets/img/provinces/an_giang.png" onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg')this.src='../../../assets/img/provinces/tinh.jpg'" alt="" srcset="">
-                                <div class="province-name">An Giang</div>
-                            </div>
+                            </td>
+                            <td *ngIf="i<cities.length-1" class="provice-border-left province-td" (click)="provinceClick(cities[i+1].cityId,cities[i+1].nameCity)">
+                                <div class=" province-box ">
+                                    <img class="province-img " src="../../../assets/img/provinces/{{cities[i+1].nameCity}}.png " onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg' )this.src='../../../assets/img/provinces/tinh.jpg'
+                                " alt=" " srcset=" ">
+                                    <div class="province-name ">{{cities[i+1].nameCity}}</div>
+                                </div>
+                            </td>
+                        </tr>
 
-                        </td>
-                        <td class=" provice-border-left">
-                            <div class="province-box">
-                                <img class="province-img" src="../../../assets/img/provinces/an.png" onerror="if(this.src !='../../../assets/img/provinces/tinh.jpg')this.src='../../../assets/img/provinces/tinh.jpg'" alt="" srcset="">
-                                <div class="province-name">Thái Bình</div>
-                            </div>
-                        </td>
-                    </tr>
+                    </ng-template>
                 </tbody>
             </table>
 
         </div>
-        <div class="d-none d-md-block col-lg-6">
-            <img class="province-hanh-chinh" src="../../../assets/img/provinces/hanh_chinh.jpg">
+        <div class="d-none d-md-block col-lg-6 ">
+            <img class="province-hanh-chinh " src="../../../assets/img/provinces/hanh_chinh.jpg ">
+        </div>
+    </div>
+    <div class="row mt-4">
+        <div class="col-12 p">
+            <nav aria-label="breadcrumb" id="point">
+                <ol class="breadcrumb ">
+                    <li class="breadcrumb-item active " aria-current="page ">Point</li>
+                </ol>
+            </nav>
+        </div>
+    </div>
+    <div class="row  min-vh-100 d-flex flex-column justify-content-start">
+        <div class="col-12 bg-dark text-light rounded mt-1">
+
+            <div class="title-point-in-city m-3 ">
+                {{nameCity}}
+            </div>
+            <table class="table table-light table-bordered border-black table-hover ">
+                <thead class="thead-light ">
+                    <th scope="col ">#</th>
+                    <th scope="col ">Name Location</th>
+                    <th scope="col ">Address</th>
+                    <th scope="col ">AQI</th>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let item of reportAqi;index as i;" (click)="getPointInfoClick(item.pointId,item.pointName)">
+                        <th scope="row ">{{i+1}}</th>
+                        <td>{{item.pointName}}</td>
+                        <td>{{item.pointAddress}}</td>
+                        <td>
+
+                            <div *ngIf="item.aqi>0;else non_aqi" class=" text-center rounded " [ngStyle]="{'background-color':getColorAqi(item.aqi)}">{{item.aqi}}</div>
+                            <ng-template #non_aqi>
+                                <div class="aqi-value rounded text-center">---</div>
+                            </ng-template>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

@@ -1,0 +1,22 @@
+###########################################
+# Подсветка синтаксиса для MiCS-6814 Sensor Library
+###########################################
+
+###########################################
+# Данные (KEYWORD1)
+###########################################
+
+MICS6814	KEYWORD1	MICS6814
+channel_t	KEYWORD1	channel_t
+gas_t		KEYWORD1	gas_t
+
+###########################################
+# Методы и функции (KEYWORD2)
+###########################################
+
+calibrate			KEYWORD2
+loadCalibrationData	KEYWORD2
+measure				KEYWORD2
+getResistance		KEYWORD2
+getBaseResistance	KEYWORD2
+getCurrentRatio		KEYWORD2

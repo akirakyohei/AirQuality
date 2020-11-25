@@ -10,7 +10,12 @@
 
 .province-box {
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+}
+
+.province-td:hover {
+    background-color: aliceblue;
+    color: black;
 }
 
 .provice-border-left {
@@ -21,11 +26,14 @@
     border-radius: 8% 8% 8% 8% / 31% 31% 31% 30%;
 }
 
-td,
-th {
-    border: 0px;
-}
-
 .province-hanh-chinh {
     width: 100%;
+}
+
+.aqi-value {
+    background-color: "#1A93D9";
+}
+
+.breadcrumb-title {
+    height: fit-content;
 }

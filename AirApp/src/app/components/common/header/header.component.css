@@ -9,6 +9,11 @@
     color: cornsilk;
 }
 
+.header-nav {
+    flex-shrink: 0;
+    flex-grow: 0;
+}
+
 @media screen and (max-width:768px) {
     .img-logo {
         width: 10%;

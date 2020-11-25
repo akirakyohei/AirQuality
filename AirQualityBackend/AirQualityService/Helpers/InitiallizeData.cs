@@ -47,7 +47,7 @@ namespace AirQualityService.Helpers
                 List<City> cities = new List<City>();
                 foreach (var tinh in tinhs)
                 {
-                    var city = new City { CityId = tinh.id, NameCity = tinh.name, Type = tinh.type };
+                    var city = new City { NameCity = tinh.name, Type = tinh.type };
                     cities.Add(city);
                 }
                 await _airQualityContext.Cities.InsertManyAsync(cities);
@@ -62,6 +62,10 @@ namespace AirQualityService.Helpers
             {
                 _airQualityContext.CreateCollection("Point");
 
+            }
+            if (!_airQualityContext.CheckCollectionExist("ReportAirQualityByDate"))
+            {
+                _airQualityContext.CreateCollection("ReportAirQualityByDate");
             }
 
 

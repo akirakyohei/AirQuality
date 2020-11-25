@@ -1,0 +1,53 @@
+.pollutant-item {
+    display: inline-block;
+    position: relative;
+    height: 20px;
+    width: 100px;
+    margin-top: 30px;
+}
+
+.pollutant-item .name {
+    position: absolute;
+    top: -20px;
+    left: 0;
+}
+
+.pollutant-item .unit {
+    position: absolute;
+    top: -20px;
+    right: 0;
+}
+
+.pollutant-item .value {
+    position: absolute;
+    left: 0;
+    bottom: -20px;
+}
+
+.pollutant-item .ratio-bar-bg {
+    position: absolute;
+    bottom: 0;
+    display: block;
+    background-color: aliceblue;
+    height: 4px;
+    width: 100%;
+    border-radius: 2px;
+}
+
+.pollutant-item .ratio-bar {
+    position: absolute;
+    bottom: 0;
+    height: 4px;
+    width: 0;
+    /* width: calc(100%*0.31339284919557); */
+    z-index: 1;
+    animation-name: show;
+    animation-duration: 2s;
+    border-radius: 2px;
+}
+
+@keyframes show {
+    0% {
+        width: 0px;
+    }
+}

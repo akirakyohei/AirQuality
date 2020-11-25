@@ -30,6 +30,18 @@ namespace AirQualityService.Controllers
             return Ok(result);
         }
 
+        [HttpGet("list")]
+        public ActionResult<List<string>> GetPointList()
+        {
+            var resultGuid = _pointRepository.GetListPointIds();
+            List<string> result = new List<string>();
+            foreach (var item in resultGuid)
+            {
+                result.Add(item.ToString());
+            }
+            return result;
+        }
+
         [HttpGet("{id}")]
         public ActionResult<PointDetailVM> GetDetailPointById(int id)
         {
@@ -55,7 +67,7 @@ namespace AirQualityService.Controllers
             return BadRequest();
         }
         [HttpDelete("{id}")]
-        public ActionResult DeletePointById(int id)
+        public ActionResult DeletePointById(Guid id)
         {
             if (ModelState.IsValid)
             {
@@ -65,11 +77,28 @@ namespace AirQualityService.Controllers
             return BadRequest();
         }
         [HttpPut]
-        public ActionResult UpdatePoint([FromBody] PointDetailVM point, int id)
+        public ActionResult UpdatePoint([FromBody] PointDetailVM point, string id)
         {
             if (ModelState.IsValid)
             {
-                _pointRepository.UpdatePoint(point, id);
+                _pointRepository.UpdatePoint(point, Guid.Parse(id));
+                return Ok();
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("pointInCity")]
+        public ActionResult<string> GetCityIdbyPointId([FromQuery] string id)
+        {
+            Console.WriteLine(id.ToString());
+            if (ModelState.IsValid)
+            {
+                var result = _pointRepository.GetCityIdComposePoint(Guid.Parse(id));
+                if (result != Guid.Empty)
+                {
+                    Console.WriteLine(result.ToString());
+                    return Ok(new { cityId = result.ToString() });
+                }
                 return Ok();
             }
             return BadRequest();

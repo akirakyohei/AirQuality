@@ -1,33 +1,40 @@
 ﻿using System;
 using AirQualityService.Model;
+using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace AirQualityService.model
 {
     public class AirQuality
     {
-        [BsonId(IdGenerator = typeof(GenerateId))]
-        [BsonRepresentation(MongoDB.Bson.BsonType.Int64)]
+        [BsonId(IdGenerator = typeof(GuidGenerator))]
+        [BsonRepresentation(BsonType.String)]
+        public Guid AirQualityId { get; set; }
 
-        public Int64 AirQualityId { get; set; }
+        [BsonRepresentation(BsonType.String)]
+        public Guid PointId { get; set; }
 
-
-        public int PointId { get; set; }
-
-
+        [BsonDateTimeOptions(Kind = DateTimeKind.Local, Representation = MongoDB.Bson.BsonType.DateTime)]
         public DateTime DateTime { get; set; }
 
         public float Temperature { get; set; }
 
         public float Humidity { get; set; }
 
-        public float PPM { get; set; }
+        public float O3 { get; set; }
 
-        public int PM1_0 { get; set; }
+        public float CO { get; set; }
 
-        public int PM2_5 { get; set; }
+        public float NO2 { get; set; }
 
-        public int PM10_0 { get; set; }
+        public float SO2 { get; set; }
+
+        public float PM2_5 { get; set; }
+
+        public float PM10_0 { get; set; }
+
+        public int AQIInHour { get; set; }
 
 
     }

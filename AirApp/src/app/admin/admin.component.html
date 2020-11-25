@@ -1,0 +1,14 @@
+<ng-sidebar-container Class="sidebar-container">
+    <ng-sidebar [opened]="_opened" mode="push">
+        <button class="btn btn-info btn-sm" (click)="logout()">Logout</button>
+    </ng-sidebar>
+
+    <!-- Page content -->
+    <div ng-sidebar-content>
+        <button class="btn border-0 shadow btn-icon btn-danger" (click)="_toggleSidebar()"><i class="fa fa-bars" aria-hidden="true"></i></button>
+    </div>
+</ng-sidebar-container>
+<app-dashboard>
+</app-dashboard>
+<ngx-notifier [allowDuplicates]="true" [allowHTML]="false" [duration]="5000" [disableAnimations]="false" [dismissOnClick]="false" [insertOnTop]="true" [max]="5">>
+</ngx-notifier>

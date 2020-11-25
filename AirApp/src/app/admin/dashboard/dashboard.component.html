@@ -1,0 +1,170 @@
+<div class="container-fluid position-relative">
+
+    <div class="row">
+        <div class="col-12 col-md-12 mx-auto">
+
+            <div class="table-box-admin p-2 pt-5">
+                <div class="tool-bar d-flex justify-content-between">
+                    <input #search class="search " type="text" placeholder="Search..." (keydown.enter)="onSearch(search.value)">
+                    <!-- Button trigger modal -->
+                    <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#modelId">
+                     Add
+                    </button>
+
+                    <!-- Modal -->
+                    <div class="modal w-100 fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+                        <div class="modal-dialog " role="document">
+                            <div class="modal-content ">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add point</h5>
+                                    <button type="button" class="close" data-dismiss="modal" (click)="closeResultAdd()" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <form action="">
+                                    <div class="modal-body">
+                                        <div class="container-fluid">
+                                            <div class="row d-flex">
+                                                <div class="col-3 p-1">
+                                                    <label for="location">Location</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="addPoint.pointName" name="location">
+                                                </div>
+                                                <div class="col-6 p-1">
+                                                    <label for="location">Address</label>
+                                                    <input type="text" class="form-control" [(ngModel)]="addPoint.pointAddress" name="address">
+
+                                                </div>
+                                                <div class="col-3 p-1">
+                                                    <label for="location"></label>
+                                                    <label for="exampleFormControlSelect1">City</label>
+                                                    <ng-select class="select-city" [selectOnTab]="true" [(ngModel)]="addPoint.city" [virtualScroll]="true" [(ngModel)]="selectedPoint.city" [clearable]="false" [hideSelected]="true" name="city">
+                                                        <ng-option *ngFor="let item of listCities" [value]="item.nameCity">{{item.nameCity}}</ng-option>
+                                                    </ng-select>
+                                                </div>
+                                            </div>
+                                            <div class="row d-flex">
+                                                <div class="col-3">
+                                                    <label for="">Latitude</label>
+                                                    <input type="text" name="lat" [(ngModel)]="addPoint.lat" class="w-100 form-control">
+                                                </div>
+                                                <div class="col-3">
+                                                    <label for="">Longitude</label>
+                                                    <input type="text" name="lng" [(ngModel)]="addPoint.lng" class="form-control">
+                                                </div>
+                                                <div class="col-3 d-flex align-items-end justify-content-center">
+
+                                                    <Button class="btn btn-primary " data-toggle="tooltip" (click)="getLocationAdd()" data-placement="top" title="Current position"><i class="fa fa-location-arrow" aria-hidden="true"></i></Button>
+                                                </div>
+
+                                            </div>
+                                            <div class="result border-top mt-3" [hidden]="!showResultAdd">
+                                                <table #tableResult class="table table-light  bg-info">
+                                                    <tbody>
+                                                        <tr>
+                                                            <th scope="row">deviceId</th>
+                                                            <td #deviceIdResult>{{resultAdd.deviceId}}</td>
+                                                            <td>
+                                                                <button (cbOnError)="copyerror($event,'deviceIdResult')" (cbOnSuccess)="copied($event,'deviceIdResult')" ngxClipboard [cbContent]="resultAdd.deviceId" [container]="tableResult"><i class="fas fa-copy    "></i></button></td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">token</th>
+                                                            <td #tokenResult>{{resultAdd.token}}</td>
+                                                            <td><button (cbOnError)="copyerror($event,'token')" data-target="token" (cbOnSuccess)="copied($event,'token')" ngxClipboard [cbContent]="resultAdd.token" [container]="tableResult"> <i class="fas fa-copy    "></i></button></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" (click)="closeResultAdd()" data-dismiss="modal">Close</button>
+                                        <button type="button" class="btn btn-primary" (click)="onAddPoint()">Add</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <script>
+                        $('#exampleModal').on('show.bs.modal', event => {
+                            var button = $(event.relatedTarget);
+                            var modal = $(this);
+                            // Use above variables to manipulate the DOM
+
+                        });
+                    </script>
+                </div>
+                <ng2-smart-table [settings]="settings" (delete)="onDelete($event)" (edit)="onEdit($event)" [source]="source" class=" table-responsive-lg table-striped  table-point-admin table-hover table-bordered bg-dark ">
+                </ng2-smart-table>
+            </div>
+        </div>
+    </div>
+    <div class="modal-edit position-absolute" style="top: 0;height: 100%;width: 100%;" [hidden]="!showEditModal">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-6">
+                    <div class="modal-dialog " role="document">
+                        <div class="modal-content ">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Edit point</h5>
+                                <button type="button" (click)="onCloseEdit()" class="close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <form action="">
+                                <div class="modal-body">
+                                    <div class="container-fluid">
+                                        <div class="row border rounded">
+                                            <label for="">Id         :</label>
+                                            <div class="id-point">{{selectedPoint.pointId}}</div>
+                                        </div>
+                                        <div class="row d-flex">
+                                            <div class="col-3 p-1">
+                                                <label for="location">Location</label>
+                                                <input type="text" class="form-control" [(ngModel)]="selectedPoint.nameLocation" name="pointName">
+                                            </div>
+                                            <div class="col-6 p-1">
+                                                <label for="location">Address</label>
+                                                <input type="text" class="form-control" [(ngModel)]="selectedPoint.address" name="pointAddress">
+
+                                            </div>
+                                            <div class="col-3 p-1">
+                                                <label for="location"></label>
+                                                <label for="exampleFormControlSelect1">City</label>
+                                                <ng-select class="select-city" [selectOnTab]="true" [virtualScroll]="true" [(ngModel)]="selectedPoint.cityName" [clearable]="false" [hideSelected]="true" name="city">
+                                                    <ng-option *ngFor="let item of listCities" [value]="item.nameCity">{{item.nameCity}}</ng-option>
+                                                </ng-select>
+                                            </div>
+                                        </div>
+                                        <div class="row d-flex">
+                                            <div class="col-4">
+                                                <label for="">Latitude</label>
+                                                <input type="text" name="lat" [(ngModel)]="selectedPoint.lat" class="w-100 form-control">
+                                            </div>
+                                            <div class="col-4">
+                                                <label for="">Longitude</label>
+                                                <input type="text" name="lng" [(ngModel)]="selectedPoint.lng" class="w-100 form-control">
+                                            </div>
+                                            <div class="col-4 d-flex align-items-end justify-content-center">
+
+                                                <Button class="btn btn-primary " (click)="getLocation()" data-toggle="tooltip" data-placement="top" title="Current position"><i class="fa fa-location-arrow" aria-hidden="true"></i></Button>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" (click)="onCloseEdit()">Close</button>
+                                    <button type="button" class="btn btn-primary" (click)="Edit()">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

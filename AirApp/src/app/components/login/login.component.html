@@ -1,3 +1,38 @@
-<p>
-  login works!
-</p>
+<div class="container mx-auto h-100">
+    <div class="row h-100 w-100 align-items-center">
+
+        <div class="col-12 col-md-6 mx-auto">
+
+            <div class="card">
+                <div class="card-header">
+                    Wellcome Back!
+                </div>
+                <form #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+
+                    <div class="card-body">
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <i class="fas fa-user icon-login mr-2" aria-hidden="true"></i>
+                            </div>
+                            <input type="text" name="username" ngModel class="form-control rounded w-50" placeholder="Usename" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                        </div>
+                        <div class="input-group mb-3">
+                            <div class="input-group-prepend">
+                                <i class="fas fa-key icon-login mr-2" aria-hidden="true"></i>
+                            </div>
+                            <input type="password" name="password" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                        </div>
+
+
+                    </div>
+                    <div class="card-footer">
+                        <div class="btn-group d-flex justify-content-center">
+                            <button class="btn btn-primary" type="submit">Sign in</button>
+                            <button class="btn btn-secondary">Back</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

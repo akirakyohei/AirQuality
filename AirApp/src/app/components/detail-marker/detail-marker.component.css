@@ -9,10 +9,66 @@
 
 .update-time {
     position: absolute;
-    top: 2px;
-    right: 2px;
+    top: 0px;
+    right: 0px;
 }
 
 .detail-aqi-chart {
     display: inline-block;
+}
+
+.animated {
+    visibility: visible !important;
+}
+
+.hide-on-init {
+    visibility: hidden;
+}
+
+.detail-index-chart {
+    display: inline-flex;
+}
+
+.province-title {}
+
+.humidity-icon {
+    color: aqua;
+}
+
+.temperature-icon {
+    color: coral;
+}
+
+.weather-item {
+    display: inline-flex;
+}
+
+.select-report::ng-deep .ng-select-container {
+    border: 1px solid;
+    background-color: azure;
+    color: black;
+    width: 10%;
+    border-radius: 3px 3px;
+    text-align: center;
+}
+
+.select-report::ng-deep .ng-select-bottom {
+    background-color: aqua;
+    color: black;
+    width: 10%;
+    border-radius: 3px 3px;
+    text-align: center;
+}
+
+.select-report::ng-deep .ng-value {
+    text-align: center;
+    width: 100%;
+}
+
+@media screen and (max-width:500px) {
+    .weather-items {
+        position: absolute;
+        left: 10%;
+        bottom: 27%;
+    }
 }

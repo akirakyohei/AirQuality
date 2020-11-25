@@ -1,57 +1,62 @@
 ﻿<Properties StartupConfiguration="{4F49FE7E-187C-4D70-8733-DE4DD2F80D03}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/appsettings.json">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Startup.cs">
     <Files>
-      <File FileName="AirQualityService/Model/City.cs" Line="18" Column="1" />
-      <File FileName="AirQualityService/Startup.cs" />
-      <File FileName="AirQualityService/appsettings.json" Line="27" Column="49" />
-      <File FileName="AirQualityService/Helpers/MapperProfile.cs" />
-      <File FileName="AirQualityService/Model/AirQuality.cs" />
-      <File FileName="AirQualityService/Setting/AirQualityDatabaseSettings.cs" />
-      <File FileName="AirQualityService/Data/AirQualityRepository.cs" />
+      <File FileName="AirQualityService/Helpers/AQIHelper.cs" Line="112" Column="53" />
+      <File FileName="AirQualityService/Services/MqttClientService.cs" />
+      <File FileName="AirQualityService/Program.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IAQIHelper.cs" />
+      <File FileName="AirQualityService/Data/ReportAirQualityRepository.cs" />
+      <File FileName="AirQualityService/Data/PointRepository.cs" Line="165" Column="1" />
       <File FileName="AirQualityService/Data/Interface/IAirQualityRepository.cs" />
-      <File FileName="AirQualityService/Data/Interface/ICityReporitory.cs" />
-      <File FileName="AirQualityService/ViewModels/CityVM.cs" />
-      <File FileName="AirQualityService/ViewModels/CityDetailVM.cs" />
-      <File FileName="AirQualityService/Data/CityRepository.cs" />
-      <File FileName="AirQualityService/appsettings.Development.json" />
+      <File FileName="AirQualityService/Data/AirQualityRepository.cs" />
+      <File FileName="AirQualityService/Controllers/AirQualityController.cs" />
+      <File FileName="AirQualityService/Model/AirQuality.cs" />
+      <File FileName="AirQualityService/Helpers/ServiceCollectionExtension.cs" />
+      <File FileName="AirQualityService/Startup.cs" Line="143" Column="37" />
+      <File FileName="AirQualityService/Controllers/ReportAirQualityController.cs" />
+      <File FileName="AirQualityService/Controllers/PointController.cs" />
+      <File FileName="AirQualityService/Helpers/MapperProfile.cs" />
+      <File FileName="AirQualityService/Helpers/InitiallizeData.cs" />
+      <File FileName="AirQualityService/Helpers/AwakeUpDeviceJobFactory.cs" />
+      <File FileName="AirQualityService/Model/ReportAirQualityByDate.cs" />
+      <File FileName="AirQualityService/Model/ReportEndDayJob.cs" />
+      <File FileName="AirQualityService/appsettings.json" />
       <File FileName="AirQualityService/Properties/launchSettings.json" />
-      <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" />
-      <File FileName="AirQualityService/ViewModels/PointVM.cs" />
-      <File FileName="AirQualityService/ViewModels/PointDetailVM.cs" />
-      <File FileName="AirQualityService/Data/PointRepository.cs" />
+      <File FileName="AirQualityService/Services/MqttClientServiceProvider.cs" />
+      <File FileName="AirQualityService/Services/QuartzHostedService.cs" />
+      <File FileName="AirQualityService/Model/Point.cs" />
+      <File FileName="AirQualityService/Model/City.cs" />
+      <File FileName="AirQualityService/Model/AwakeUpDeviceJob.cs" />
+      <File FileName="AirQualityService/Resourse/Tinh.json" />
+      <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" Line="14" Column="63" />
+      <File FileName="AirQualityService/ViewModels/PointAirQualityVM.cs" />
+      <File FileName="AirQualityService/Data/Interface/ICityReporitory.cs" Line="1" Column="1" />
+      <File FileName="AirQualityService/Data/Interface/IReportAirQualityInDayRepository.cs" />
       <File FileName="AirQualityService/ViewModels/AirQualityVM.cs" />
       <File FileName="AirQualityService/Controllers/CityController.cs" />
-      <File FileName="AirQualityService/Controllers/PointController.cs" />
-      <File FileName="AirQualityService/Controllers/AirQualityController.cs" />
-      <File FileName="AirQualityService/AirQualityService.csproj" />
-      <File FileName="AirQualityService/Setting/MQTTClientSettings.cs" />
-      <File FileName="AirQualityService/Services/ExtarmalService.cs" />
-      <File FileName="AirQualityService/Services/MqttClientService.cs" />
-      <File FileName="AirQualityService/Services/MqttClientServiceProvider.cs" />
-      <File FileName="AirQualityService/Setting/Options/AspCoreMqttClientOptionBuilder.cs" />
-      <File FileName="AirQualityService/Helpers/ServiceCollectionExtension.cs" />
-      <File FileName="AirQualityService/Program.cs" />
-      <File FileName="AirQualityService/Resourse/Tinh.json" />
-      <File FileName="AirQualityService/Data/AirQualityContext.cs" />
-      <File FileName="AirQualityService/Helpers/InitiallizeData.cs" />
-      <File FileName="AirQualityService/Model/Point.cs" />
-      <File FileName="AirQualityService/Model/GenerateId.cs" />
+      <File FileName="AirQualityService/ViewModels/CityDetailVM.cs" />
+      <File FileName="AirQualityService/ViewModels/CityVM.cs" />
+      <File FileName="AirQualityService/ViewModels/JobSchedule.cs" />
+      <File FileName="AirQualityService/ViewModels/PointDetailVM.cs" />
+      <File FileName="AirQualityService/ViewModels/PointVM.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IFullTextSearchHelper.cs" />
+      <File FileName="AirQualityService/Helpers/FullTextSearchHelper.cs" />
+      <File FileName="AirQualityService/Services/Interface/IMqttClientService.cs" />
+      <File FileName="AirQualityService/Services/Interface/IMqttClientPublishMesage.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IIBMClientHelper.cs" />
+      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" />
+      <File FileName="AirQualityService/Controllers/ManagementDeviceController.cs" Line="58" Column="57" />
+      <File FileName="AirQualityService/ViewModels/LoginModel.cs" />
+      <File FileName="AirQualityService/Controllers/AuthController.cs" Line="35" Column="52" />
+      <File FileName="AirQualityService/Data/CityRepository.cs" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="AirQualityBackend" expanded="True">
             <Node name="AirQualityService" expanded="True">
-              <Node name="Dependencies" expanded="True" />
               <Node name="Controllers" expanded="True" />
-              <Node name="Data" expanded="True">
-                <Node name="Interface" expanded="True" />
-              </Node>
-              <Node name="Helpers" expanded="True" />
-              <Node name="Model" expanded="True" />
-              <Node name="Services" expanded="True" />
-              <Node name="Setting" expanded="True" />
-              <Node name="ViewModels" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
             </Node>
           </Node>
         </State>

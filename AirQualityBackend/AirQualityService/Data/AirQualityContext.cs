@@ -49,6 +49,14 @@ namespace AirQualityService.Data
             }
         }
 
+        public IMongoCollection<ReportAirQualityByDate> ReportAirQualityByDate
+        {
+            get
+            {
+                return _database.GetCollection<ReportAirQualityByDate>(_setting.ReportAirQualityByDate);
+            }
+        }
+
         public Boolean CheckCollectionExist(string name)
         {
 

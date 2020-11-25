@@ -33,8 +33,8 @@ namespace AirQualityService.Helpers
                .WithClientId(mqttClientId)
                .WithTls()
                .WithKeepAlivePeriod(TimeSpan.MaxValue)
-                .WithKeepAliveSendInterval(TimeSpan.FromSeconds(300))
-               .WithCommunicationTimeout(TimeSpan.FromSeconds(300))
+                .WithKeepAliveSendInterval(TimeSpan.FromSeconds(30))
+               .WithCommunicationTimeout(TimeSpan.FromSeconds(30))
                .WithTcpServer(mqttServer, mqttPort)
                 .WithWebSocketServer(mqttServer);
             });

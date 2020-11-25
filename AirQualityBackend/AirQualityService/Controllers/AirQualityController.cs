@@ -22,18 +22,28 @@ namespace AirQualityService.Controllers
 
 
         [HttpGet("list/{pointId}/{dateTimeFrom}/{limmit}")]
-        public ActionResult<List<AirQualityVM>> GetAirQualitiesByPointId(int pointId, DateTime dateTimeFrom, int limit)
+        public ActionResult<List<AirQualityVM>> GetAirQualitiesByPointId(Guid pointId, DateTime dateTimeFrom, int limmit)
         {
             if (ModelState.IsValid)
             {
-                var result = _airQualityRepository.GetAirQualitiesByPointId(pointId, dateTimeFrom, limit);
+                var result = _airQualityRepository.GetAirQualitiesByPointId(pointId, dateTimeFrom, limmit);
+                return Ok(result);
+            }
+            return BadRequest();
+        }
+        [HttpGet("listById")]
+        public ActionResult<List<AirQualityVM>> GetAirQualitiesByPointId([FromQuery] Guid pointId)
+        {
+            if (ModelState.IsValid)
+            {
+                var result = _airQualityRepository.GetAirQualitiesByPointId(pointId);
                 return Ok(result);
             }
             return BadRequest();
         }
 
         [HttpGet("{pointId}/{dateTimeFrom}")]
-        public ActionResult<AirQualityVM> GetAirQualityByPointId(int pointId, DateTime dateTimeFrom)
+        public ActionResult<AirQualityVM> GetAirQualityByPointId(Guid pointId, DateTime dateTimeFrom)
         {
             if (ModelState.IsValid)
             {
@@ -43,8 +53,8 @@ namespace AirQualityService.Controllers
             return BadRequest();
         }
 
-        [HttpGet("current/{pointId}")]
-        public ActionResult<AirQualityVM> GetAirQualityCurrentByPointId(int pointId)
+        [HttpGet("current")]
+        public ActionResult<AirQualityVM> GetAirQualityCurrentByPointId([FromQuery] Guid pointId)
         {
             if (ModelState.IsValid)
             {

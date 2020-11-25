@@ -1,8 +1,15 @@
+import { PlacesService } from './../../../services/places.service';
+import { environment } from './../../../../environments/environment';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ColorAqiService } from './../../../services/color-aqi.service';
+import { PointAir } from './../../../models/point-air';
+import { ReportAqiService } from 'src/app/services/report-aqi.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { Marker } from './../../../models/marker';
-import { MarkerService } from './../../../services/marker.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
+import { catchError, timeout } from 'rxjs/operators';
+import { of } from 'rxjs';
+
 
 
 @Component({
@@ -12,7 +19,7 @@ import { GoogleMap } from '@angular/google-maps';
 })
 
 export class GoogleMapHomeComponent implements OnInit {
-@ViewChild('googlemap',{static:true}) public googleMap :GoogleMap;
+  @ViewChild('googlemap', { static: true }) public googleMap: GoogleMap;
 
 
   zoom = 12;
@@ -35,6 +42,9 @@ export class GoogleMapHomeComponent implements OnInit {
   };
 
   icons: Record<string, { icon: string }> = {
+    default: {
+      icon: '../../../../assets/img/aqi/default.png',
+    },
     good: {
       icon: '../../../../assets/img/aqi/good.png',
     },
@@ -57,7 +67,11 @@ export class GoogleMapHomeComponent implements OnInit {
 
   height = '90vh';
 
-  constructor(private markerService: MarkerService,private router:Router,private route:ActivatedRoute) {
+  constructor(private reportAqiService: ReportAqiService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private colorAqiService: ColorAqiService,
+    private placesService: PlacesService) {
 
   }
 
@@ -79,56 +93,48 @@ export class GoogleMapHomeComponent implements OnInit {
 
           console.log('not read location' + error);
         },
-        { timeout: 10000 };
+        // tslint:disable-next-line: no-unused-expression
+        { timeout: 20000 };
     });
   }
   getMarker() {
 
-    this.markerService.getMarker().subscribe((data: Marker[]) => {
+    this.reportAqiService.getInfoPointAir().subscribe((data: PointAir[]) => {
 
       data.forEach(element => {
-        const type = this.getAirType(element.AQI);
-
+        const type = this.colorAqiService.getAirType(element.aqi);
         const marker = new google.maps.Marker({
-          position: new google.maps.LatLng(element.lat, element.lng),
+          position: new google.maps.LatLng(Number.parseFloat(element.lat), Number.parseFloat(element.lng)),
           icon: {
             url: this.icons[type].icon,
-            scaledSize:new google.maps.Size(46,43),
+            scaledSize: new google.maps.Size(35, 32),
 
           },
           label: {
             color: 'white'
-            , text: (element.AQI).toString(),
-
+            , text: element.aqi > 0 ? element.aqi.toString() : '---',
           },
-          map:this.googleMap.googleMap
+          title: element.pointName
+          ,
+          map: this.googleMap.googleMap
 
 
         });
-        marker.set('id',element.idMarker);
-        marker.addListener('click',()=>{
-          this.router.navigate(['/detail-marker'],{ queryParams: {id:marker.get('id')} });
-        });
+        marker.set('id', element.pointId);
+        marker.addListener('click', () => {
+
+          this.placesService.getCityIdComposePoint(element.pointId).pipe(timeout(2000),catchError(e=>{return of(null)})).subscribe( data=>{
+            console.log(data);
+            this.router.navigate(['/detail-marker'], { queryParams: { id: marker.get('id'), namePoint: element.pointName, cityId: data.cityId } });
+
+          })
+        }
+        );
       });
     });
   }
-
-  getAirType(x: number) {
-    if (x <= 50) {
-      return 'good';
-    } else if (x <= 100) {
-      return 'moderate';
-    } else if (x <= 150) {
-      return 'unhealthyForGroups';
-    } else if (x <= 200) {
-      return 'unhealthy';
-    } else if (x <= 300) {
-      return 'veryunhealthy';
-    } else {
-      return 'hazardous';
-    }
-  }
-
-
-
 }
+
+
+
+
