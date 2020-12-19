@@ -19,12 +19,15 @@ namespace AirQualityService.Helpers
             {
                 var settings = MQTTClientSettings.instance;
                 // string mqttClientId = "d:" + settings.OrganizationID + ":" + settings.DeviceType + ":" + settings.DeviceID;
+                //a-f4vt93-es471gq7xj
+                //JJ&i?a@kyn_avA(irW
                 string mqttClientId = "a:f4vt93:dfjkvnjvjds";
                 string mqttServer = settings.OrganizationID + ".messaging.internetofthings.ibmcloud.com";
                 string mqttMethod = settings.AuthenticationMethod;
                 string mqttToken = settings.AuthenticationToken;
                 int mqttPort = settings.Port;
-                //string mqttKey = "a-f4vt93-ghmlhla6fp";
+
+                ////string mqttKey = "a-f4vt93-ghmlhla6fp";
                 //string mqttToken = "-u35gjs-fuNvI*VIOx";
 
 

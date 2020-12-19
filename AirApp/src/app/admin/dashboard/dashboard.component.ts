@@ -64,7 +64,8 @@ export class DashboardComponent implements OnInit {
       editButtonContent: '<i class="fas fa-edit "aria-hidden="true"></i>'
     },
     delete: {
-      deleteButtonContent: '<i class="fa fa-trash" aria-hidden="true"></i>'
+      deleteButtonContent: '<i class="fa fa-trash" aria-hidden="true"></i>',
+      confirmDelete:true
     },
     noDataMessage: 'Not data found',
     filter: {
@@ -240,6 +241,13 @@ if((this.addPoint.city.length===0)){
 
       console.log(jsonMess);
       console.log(data);
+    })
+  }
+
+  refresh() {
+    this.pointService.getPointList().subscribe((data:any[])=>{
+      console.log(data);
+   this.source = new LocalDataSource(data);
     })
   }
   copied(event,type){

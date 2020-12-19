@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using AirQualityService.Data.Interface;
 using AirQualityService.model;
 using AirQualityService.Setting;
@@ -102,6 +103,10 @@ namespace AirQualityService.Data
                                 orderby a.DateTime
                                 select a
                               );
+            if (limit < 1)
+            {
+                return airQualities.ToList();
+            }
 
             if (airQualities.Count() > limit)
             {

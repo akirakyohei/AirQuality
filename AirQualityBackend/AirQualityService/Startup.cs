@@ -28,6 +28,8 @@ using AirQualityService.Model;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using System.IO;
+using Microsoft.AspNetCore.SpaServices.AngularCli;
 
 namespace AirQualityService
 {
@@ -50,6 +52,7 @@ namespace AirQualityService
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            //services.AddMvc(opt => opt.EnableEndpointRouting = false);
             services.AddMqttClientHostedService();
             services.AddScoped<ExtarmalService>();
             services.AddSwaggerGen();
@@ -63,6 +66,11 @@ namespace AirQualityService
                 });
 
             });
+
+            //services.AddSpaStaticFiles(config =>
+            //{
+            //    config.RootPath = "AirApp";
+            //});
 
             services.AddCors();
             services.AddAuthentication(opt =>
@@ -88,6 +96,7 @@ namespace AirQualityService
 
             services.AddSingleton<IAirQualityDatabaseSettings>(opt =>
             opt.GetRequiredService<IOptions<AirQualityDatabaseSettings>>().Value);
+
             services.AddTransient<AirQualityContext>();
             services.AddSingleton<ICityReporitory, CityRepository>();
             services.AddSingleton<IAirQualityRepository, AirQualityRepository>();
@@ -103,13 +112,14 @@ namespace AirQualityService
             services.AddSingleton<ReportEndDayJob>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(AwakeUpDeviceJob),
-                cronExpression: "0 0 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ? * * *"
-                //cronExpression: "* * * * * ? *"
+                //cronExpression: "0 0 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ? * * *"
+                //cronExpression: "0 0 * ? * * *"
+                cronExpression: "0/20 * * ? * * *"
                 ));
 
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(ReportEndDayJob),
-                   cronExpression: "0 30 23 ? * * *"
+                cronExpression: "0 30 0 ? * * *"
                 //cronExpression: "0/5 * * * * ? *"
                 ));
             services.AddHttpClient("ibm", config =>
@@ -149,6 +159,16 @@ namespace AirQualityService
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Air Quality API Version1");
             });
+
+            //app.UseSpa(config =>
+            //{
+            //    config.Options.SourcePath = Path.Join(env.ContentRootPath, "./../AirApp");
+            //    if (env.IsDevelopment())
+            //    {
+            //        config.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
+
 
             app.UseEndpoints(endpoints =>
             {

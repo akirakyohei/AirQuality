@@ -9,12 +9,13 @@
                 <div class="detail-aqi-chart">
                     <ngx-gauge size="200" [min]="airOptions.min" [max]="airOptions.max" [cap]="airOptions.cap" [type]="airOptions.type" [thick]="airOptions.thick" [thresholds]="airOptions.thresholds" [value]="infoAir!=undefined?infoAir.aqiInHour:0" label="Air Quality">
                     </ngx-gauge>
-                    <div class="muc-air-quality text-center"><span class="p-2 rounded" [ngStyle]="{'background-color':getColorHealthy(infoAir!=undefined? infoAir.aqiInHour :0)}">{{gethealthy(infoAir!=undefined?infoAir.aqiInHour:0)}}</span> </div>
+                    <div class="muc-air-quality text-center"><span class="p-2 rounded" [ngStyle]="{'background-color':getColorHealthy(infoAir!=undefined? infoAir.aqiInHour :0)}">{{gethealthy(infoAir!=undefined?infoAir.aqiInHour:0)}}</span>
+                    </div>
                 </div>
                 <div class="detail-index-chart d-flex d-inline-flex flex-wrap  align-items-center justify-content-between">
 
-                    <div class="align-self-center m-2" *ngFor="let item of airIndex">
-                        <app-linear-gauge [min]="item.min" [max]="item.max" [value]="item.value" [name]="item.name" [unit]="item.unit" [thresholds]="airIndexthresholds"></app-linear-gauge>
+                    <div class="align-self-center m-2" *ngFor="let item of airIndex;index as i">
+                        <app-linear-gauge [min]="item.min" [max]="maxValueIndex[i]" [value]="item.value" [name]="item.name" [unit]="item.unit" [thresholds]="airIndexthresholds[i]"></app-linear-gauge>
                     </div>
                 </div>
 
@@ -33,16 +34,99 @@
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 mt-3 ml-lg-3 bg-dark border-index">
+        <div class="col-12 col-lg-4 mt-3 pb-3 ml-lg-3 bg-dark border-index">
             <h3 class="list-detail-title text-center text-white">
-                List point in city
+                Khuyến nghĩ sức khoẻ
             </h3>
-            <div class="d-flex flex-column pl-4 pr-4" *ngFor="let item of pointInCity">
-                <div class="d-flex justify-content-between py-2">
-                    <div class="text-white overflow-scroll">{{item.pointName}}</div>
-                    <div class="rounded text-white p-1" [ngStyle]="{'background-color': getColorHealthy(item.aqi)}">AQI {{item.aqi}}</div>
-                </div>
+            <h5 class="  py-1" style="color:#53e445">Làm thế nào để bảo vệ khỏi ô nhiễm không khí ở {{namePoint}}?
+            </h5>
+            <div class="warning-healthy">
+                <div *ngIf="infoAir!=undefined">
+                    <div *ngIf="isBad();else elseUnHealthy">
+                        <!-- Nguy hiểm, rất xấu, xấu -->
+                        <ul class="list-group ">
+                            <li class="list-group-item d-flex justify-content-between align-items-center">
+                                <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/Face-Mask-Icon.png" alt="">
+                                <span class="badge p-2  badge-warning badge-pill">Đeo khẩu trang khi ra ngoài</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/3095395.png" alt="">
+                                <span class="badge p-2 badge-warning badge-pill">Chạy máy lọc không khí</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/Window-icon.png" alt="">
+                                <span class="badge p-2 badge-warning  badge-pill">Đóng cửa sổ để tránh không khí
+                  bẩn</span>
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/sport+icon-1320195208765240116.png" alt="">
+                                <span class="badge p-2 badge-warning badge-pill">Tránh tập thể dục ngoài trời</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <ng-template #elseUnHealthy>
+                        <div *ngIf="isUnhealthy();else elseMedum">
+                            <!-- Không lành mạnh -->
+                            <ul class="list-group ">
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <img class="bg-orange" width="30px" height="30px" src="./../../../assets/img/healthy/Face-Mask-Icon.png" alt="">
+                                    <span class="badge p-2  badge-warning badge-pill">Nhóm nhạy cảm nên đeo khẩu trang khi ra
+                    ngoài</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                    <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/3095395.png" alt="">
+                                    <span class="badge p-2 badge-warning badge-pill">Chạy máy lọc không khí</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                    <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/Window-icon.png" alt="">
+                                    <span class="badge p-2 badge-warning  badge-pill">Đóng cửa sổ để tránh không khí
+                    bẩn</span>
+                                </li>
+                                <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                    <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/sport+icon-1320195208765240116.png" alt="">
+                                    <span class="badge p-2 badge-warning badge-pill">Mọi người nên giảm tập thể dục ngoài
+                    trời</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <ng-template #elseMedum>
 
+                            <div *ngIf="isMedum();else elseGood">
+                                <!-- Trung bình -->
+                                <ul class="list-group ">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                        <img class="bg-danger" width="30px" height="30px" src="./../../../assets/img/healthy/Window-icon.png" alt="">
+                                        <span class="badge p-2 badge-warning  badge-pill">Đóng cửa sổ để tránh không khí
+                      bẩn</span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                        <img class="bg-orange" width="30px" height="30px" src="./../../../assets/img/healthy/sport+icon-1320195208765240116.png" alt="">
+                                        <span class="badge p-2 badge-warning badge-pill">Nhóm nhạy cảm nên giảm tập thể dục
+                      ngoài
+                      trời</span>
+                                    </li>
+                                </ul>
+
+                            </div>
+                            <ng-template #elseGood>
+                                <!-- Tốt -->
+                                <ul class="list-group ">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                        <img class="bg-success" width="30px" height="30px" src="./../../../assets/img/healthy/Window-icon.png" alt="">
+                                        <span class="badge p-2 badge-warning  badge-pill"> Mở cửa sổ để mang lại không khí trong
+                      lành,<br>
+                      sạch sẽ vào nhà
+                    </span>
+                                    </li>
+                                    <li class="list-group-item d-flex justify-content-between align-items-center disabled">
+                                        <img class="bg-success" width="30px" height="30px" src="./../../../assets/img/healthy/sport+icon-1320195208765240116.png" alt="">
+                                        <span class="badge p-2 badge-warning badge-pill">Thích các hoạt động ngoài trời</span>
+                                    </li>
+                                </ul>
+                            </ng-template>
+                        </ng-template>
+                    </ng-template>
+                </div>
             </div>
         </div>
     </div>
@@ -50,11 +134,29 @@
 
         <div animateOnScroll animationName="fadeIn" class="animated col-12 pr-5 pl-5  pt-3 mt-3 pb-3 ml-lg-3 bg-dark text-light border-index">
             <div class="select-report-box mb-4">
-                <ng-select class="select-report" [(ngModel)]="selectedReport" [clearable]="false" [hideSelected]="true">
+                <ng-select class="select-report" [(ngModel)]="selectedReport" (change)="onChangeReport()" [clearable]="false" [hideSelected]="true">
                     <ng-option *ngFor="let item of reports" [value]='item.id'>{{item.name}}</ng-option>
                 </ng-select>
             </div>
             <app-line-chart [data]="reportAqi"></app-line-chart>
+        </div>
+    </div>
+    <div class="row justify-content-center mt-3">
+        <div class="col-12 pr-5 pl-5  pt-3 mt-3 pb-3 ml-lg-3 bg-dark border-index  ">
+            <h3 class="list-detail-title text-center text-white border-bottom pb-2">
+                List point in city
+            </h3>
+            <div class="d-flex flex-md-row flex-column">
+                <div class="d-flex pl-4 pr-4 flex-md-row flex-column" *ngFor="let item of pointInCity">
+                    <div class="d-flex justify-content-between py-2 border rounded-pill px-4">
+                        <div class="text-white overflow-scroll">{{item.pointName}}</div>
+                        <div class="rounded text-white p-1 ml-4" (click)="onClickPoint(item.pointId)" style="cursor: pointer;" [ngStyle]="{'background-color': getColorHealthy(item.aqi)}">AQI {{item.aqi}}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
         </div>
     </div>
 </div>

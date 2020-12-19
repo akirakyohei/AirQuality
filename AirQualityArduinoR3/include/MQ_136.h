@@ -1,8 +1,8 @@
 
-#define CALIBRATION_SAMPLE_TIMES (50)     //define how many samples you are going to take in the calibration phase
-#define CALIBRATION_SAMPLE_INTERVAL (500) //define the time interal(in milisecond) between each samples in the cablibration phase
-#define READ_SAMPLE_INTERVAL (50)         //define how many samples you are going to take in normal operation
-#define READ_SAMPLE_TIMES (5)             //define the time interal(in milisecond) between each samples in
+#define CALIBRATION_SAMPLE_TIMES (50)   //define how many samples you are going to take in the calibration phase
+#define CALIBRATION_SAMPLE_INTERVAL 500 //define the time interal(in milisecond) between each samples in the cablibration phase
+#define READ_SAMPLE_INTERVAL (50)       //define how many samples you are going to take in normal operation
+#define READ_SAMPLE_TIMES (5)           //define the time interal(in milisecond) between each samples in
 
 #define CO2ppm 500
 #define COppm 10
@@ -16,18 +16,14 @@
 #define H2Sppm 10
 #define NH4ppm 10
 
-
 class MQ_136
 {
 private:
-
-float SO2_136Curve[2] = {40.44109566, -1.085728557}; //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
-float CH4_136Curve[2] = {57.82777729, -1.187494933}; //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
-float CO_136Curve[2] = {2142.297846, -2.751369226};  //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
-float H2S_136Curve[2] = {0, 0};                      //MQ136 http://www.sensorica.ru/pdf/MQ-136.pdf
-float NH4_136Curve[2] = {0, 0};                      //MQ136 http://www.sensorica.ru/pdf/MQ-136.pdf
-
-
+    float SO2_136Curve[2] = {40.44109566, -1.085728557}; //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
+    float CH4_136Curve[2] = {57.82777729, -1.187494933}; //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
+    float CO_136Curve[2] = {2142.297846, -2.751369226};  //MQ136 http://china-total.com/product/meter/gas-sensor/MQ136.pdf
+    float H2S_136Curve[2] = {0, 0};                      //MQ136 http://www.sensorica.ru/pdf/MQ-136.pdf
+    float NH4_136Curve[2] = {0, 0};                      //MQ136 http://www.sensorica.ru/pdf/MQ-136.pdf
 
     int pin_136;
     float Ro136;      //MQ136 ... this has to be tuned 10K Ohm

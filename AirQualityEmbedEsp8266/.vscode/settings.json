@@ -9,5 +9,6 @@
         "ostream": "cpp",
         "streambuf": "cpp",
         "regex": "cpp"
-    }
+    },
+    "jupyter.jupyterServerType": "local"
 }

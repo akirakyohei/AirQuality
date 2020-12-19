@@ -5,7 +5,6 @@ import { BehaviorSubject } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { PointAirDetail } from '../models/point-air-detail';
 import { PointAir } from '../models/point-air';
-import { tap } from 'rxjs/operators';
 
 
 @Injectable({
@@ -16,13 +15,15 @@ export class ReportAqiService {
   private reportAqiBehavior = new BehaviorSubject<PointAir[]>(new Array<PointAir>());
   reportAqi = this.reportAqiBehavior.asObservable();
   //
-  private reportAqiInfoBehavior= new BehaviorSubject<PointAir[]>(new Array());
-  reportAqiInfo= this.reportAqiInfoBehavior.asObservable();
+  private reportAqiInfoBehavior = new BehaviorSubject<PointAir[]>(new Array());
+  reportAqiInfo = this.reportAqiInfoBehavior.asObservable();
   //
-private reportAqiListBehavior= new BehaviorSubject<PointAirDetail[]>(new Array());
-reportAqiList=this.reportAqiListBehavior.asObservable();
+  private reportAqiListBehavior = new BehaviorSubject<PointAirDetail[]>(new Array());
+  reportAqiList = this.reportAqiListBehavior.asObservable();
 
+  private urlReports = ["/api/AirQuality/current/limmit", "/api/ReportAirQuality/current/limmit"];
 
+  private urlReportIndex = 0;
   constructor(private http: HttpClient) { }
   OnInit() {
 
@@ -30,7 +31,7 @@ reportAqiList=this.reportAqiListBehavior.asObservable();
 
   //
   getinfoPointAir(id: string) {
-    const url = environment.uri+'/api/ReportAirQuality/aqi/point';
+    const url = environment.uri + '/api/ReportAirQuality/aqi/point';
     const param = new HttpParams().set('cityId', id);
 
     this.http.get(url, { params: param }).subscribe(
@@ -42,36 +43,46 @@ reportAqiList=this.reportAqiListBehavior.asObservable();
     )
     return this.reportAqi;
   }
-  getInfoPointAir(){
-const url=environment.uri+'/api/ReportAirQuality/aqi/point/list';
-this.http.get(url).subscribe((data:PointAir[])=>{
- this.reportAqiInfoBehavior.next(data);
-},error=>{
-  console.error(error);
-})
-return this.reportAqiInfo;
+  getInfoPointAir() {
+    const url = environment.uri + '/api/ReportAirQuality/aqi/point/list';
+    this.http.get(url).subscribe((data: PointAir[]) => {
+      this.reportAqiInfoBehavior.next(data);
+    }, error => {
+      console.error(error);
+    })
+    return this.reportAqiInfo;
   }
 
-  getInfoAirCurrentByPointId(id:string){
-const url = environment.uri+'/api/AirQuality/current';
-const param= new HttpParams().set('pointId',id);
-return this.http.get(url,{params:param});
+  getInfoAirCurrentByPointId(id: string) {
+    const url = environment.uri + '/api/AirQuality/current';
+    const param = new HttpParams().set('pointId', id);
+    return this.http.get(url, { params: param });
   }
-  getAqiAirByPointId(id:string){
-const url= environment.uri+'/api/AirQuality/listById';
 
-const param = new HttpParams().set('pointId', id);
 
-this.http.get(url, { params: param }).subscribe(
-  (data: PointAirDetail[]) => {
-  console.log('hh'+data);
-    this.reportAqiListBehavior.next(data);
-  }, error => {
-    console.error(error);
+  getAqiAirByPointId(id: string) {
+
+    const url = environment.uri + this.urlReports[this.urlReportIndex];
+
+    const param = new HttpParams()
+      .set('pointId', id)
+      .set('limit', "100");
+
+
+    this.http.get(url, { params: param }).subscribe(
+      (data: PointAirDetail[]) => {
+        console.log('hh' + data);
+        this.reportAqiListBehavior.next(data);
+      }, error => {
+        console.error(error);
+      }
+    )
+
+    // return this.reportAqiList;
   }
-)
 
-// return this.reportAqiList;
+  setUrlReportIndex(index: number) {
+    this.urlReportIndex = index;
   }
 
 }

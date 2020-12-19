@@ -35,7 +35,7 @@ namespace AirQualityService.Model
                 ReportAirQualityByDate report = new ReportAirQualityByDate
                 {
                     AQI = aqi,
-                    DateTime = date,
+                    DateTime = date.AddDays(-1),
                     PointId = idPoint
                 };
                 reportAirQuality.AddAQI(report);

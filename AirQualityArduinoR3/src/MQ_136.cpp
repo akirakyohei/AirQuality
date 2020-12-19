@@ -1,6 +1,12 @@
-#include <MQ_136.h>
 #include <Arduino.h>
+#include <MQ_136.h>
 
+MQ_136::MQ_136(int pin)
+{
+    pin_136 = pin;
+    pinMode(pin_136, OUTPUT);
+    Ro136 = MQCalibration(pin_136, SO2ppm, RL, SO2_136Curve);
+}
 /****************** MQResistanceCalculation ****************************************
 Input:   raw_adc - raw value read from adc, which represents the voltage
 Output:  the calculated sensor resistance
@@ -29,9 +35,11 @@ float MQ_136::MQCalibration(int mq_pin, double ppm, double rl_value, float *pcur
     for (i = 0; i < CALIBRATION_SAMPLE_TIMES; i++) //take multiple samples
     {
         val += MQResistanceCalculation(analogRead(mq_pin), rl_value);
-        delay(CALIBRATION_SAMPLE_INTERVAL);
+        delayMicroseconds(CALIBRATION_SAMPLE_INTERVAL * 1000);
+        // delay(CALIBRATION_SAMPLE_INTERVAL);
     }
-    val = val / CALIBRATION_SAMPLE_TIMES; //calculate the average value
+    val = val / CALIBRATION_SAMPLE_TIMES;
+    //calculate the average value
     //Ro = Rs * sqrt(a/ppm, b) = Rs * exp( ln(a/ppm) / b )
 
     return (long)val * exp((log(pcurve[0] / ppm) / pcurve[1]));
@@ -74,12 +82,6 @@ float MQ_136::MQGetPercentage(float rs_ro_ratio, float ro, float *pcurve)
     return (double)(pcurve[0] * pow(((double)rs_ro_ratio / ro), pcurve[1]));
 }
 
-MQ_136::MQ_136(int pin)
-{
-    pin_136 = pin;
-    Ro136 = MQCalibration(pin_136, SO2ppm, RL, SO2_136Curve);
-    pinMode(pin_136, OUTPUT);
-}
 float MQ_136::getSo2()
 {
     return MQGetPercentage(MQRead(pin_136, RL), Ro136, SO2_136Curve);

@@ -9,6 +9,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { GoogleMap } from '@angular/google-maps';
 import { catchError, timeout } from 'rxjs/operators';
 import { of } from 'rxjs';
+import { isUndefined } from 'util';
 
 
 
@@ -32,7 +33,8 @@ export class GoogleMapHomeComponent implements OnInit {
     disableDoubleClickZoom: true,
     mapTypeControl: true,
     maxZoom: 15,
-    minZoom: 5
+    minZoom: 5,
+    center: new google.maps.LatLng(21.039005939041772, 105.83822167275451)
   };
 
 
@@ -40,6 +42,7 @@ export class GoogleMapHomeComponent implements OnInit {
     animation: google.maps.Animation.DROP
 
   };
+  markerLocal: any;
 
   icons: Record<string, { icon: string }> = {
     default: {
@@ -66,6 +69,7 @@ export class GoogleMapHomeComponent implements OnInit {
   };
 
   height = '90vh';
+  markerLocalLocal: any;
 
   constructor(private reportAqiService: ReportAqiService,
     private router: Router,
@@ -85,18 +89,42 @@ export class GoogleMapHomeComponent implements OnInit {
 
   getLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
-      (this.center = {
+
+      this.center = {
         lat: position.coords.latitude,
         lng: position.coords.longitude,
-      }),
-        (error: any) => {
+      }
+      this.getMarkerLocation();
 
-          console.log('not read location' + error);
-        },
-        // tslint:disable-next-line: no-unused-expression
-        { timeout: 20000 };
-    });
+    },
+      (error: any) => {
+
+        console.log('not read location' + error);
+      },
+      // tslint:disable-next-line: no-unused-expression
+      { timeout: 20000 }
+    )
   }
+  getMarkerLocation() {
+    if (isUndefined(this.center))
+      return;
+    this.markerLocal = new google.maps.Marker({
+      position: this.center,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      title: '',
+      map: this.googleMap.googleMap
+    });
+    this.markerLocal.addListener('click', this.toggleBounce);
+  }
+  toggleBounce() {
+    if (this.markerLocalLocal.getAnimation() !== null) {
+      this.markerLocal.setAnimation(null);
+    } else {
+      this.markerLocal.setAnimation(google.maps.Animation.BOUNCE);
+    }
+  }
+
   getMarker() {
 
     this.reportAqiService.getInfoPointAir().subscribe((data: PointAir[]) => {
@@ -123,7 +151,7 @@ export class GoogleMapHomeComponent implements OnInit {
         marker.set('id', element.pointId);
         marker.addListener('click', () => {
 
-          this.placesService.getCityIdComposePoint(element.pointId).pipe(timeout(2000),catchError(e=>{return of(null)})).subscribe( data=>{
+          this.placesService.getCityIdComposePoint(element.pointId).pipe(timeout(2000), catchError(() => { return of(null) })).subscribe(data => {
             console.log(data);
             this.router.navigate(['/detail-marker'], { queryParams: { id: marker.get('id'), namePoint: element.pointName, cityId: data.cityId } });
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AirQualityService.Data.Interface;
+using AirQualityService.Model;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -51,6 +52,19 @@ namespace AirQualityService.Controllers
             {
                 var result = _pointRepository.GetPointAirQualities();
                 return Ok(result);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet("current/limmit")]
+        public ActionResult<List<ReportAirQualityByDate>> GetAirQualityCurrentLimitById([FromQuery] Guid pointId, [FromQuery] int limit)
+        {
+            if (ModelState.IsValid)
+            {
+                var res = reportAirQuality.GetAirQualityNowLimit(pointId, limit);
+
+                return Ok(res);
+
             }
             return BadRequest();
         }

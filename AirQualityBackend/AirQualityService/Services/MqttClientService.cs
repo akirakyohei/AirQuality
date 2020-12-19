@@ -49,22 +49,24 @@ namespace AirQualityService.Services
         {
             Console.WriteLine("handing message!");
 
-
             var payload = eventArgs.ApplicationMessage.Payload;
-            var json = Encoding.UTF8.GetString(payload);
 
+
+            var json = Encoding.UTF8.GetString(payload);
             JObject jObject = JObject.Parse(json);
+            Console.WriteLine(json.ToString());
+            return;
             var now = DateTime.Now;
             //  var nowLocal = DateTime.SpecifyKind(now, DateTimeKind.Local);
             var nowLocal = now;
             DateTime dateTime = new DateTime(nowLocal.Year, nowLocal.Month, nowLocal.Day, nowLocal.Hour, 0, 0);
 
-            DateTime dateTime1 = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, dateNow.Hour, 0, 0);
-            dateNow = dateNow.AddHours(1);
+            //DateTime dateTime1 = new DateTime(dateNow.Year, dateNow.Month, dateNow.Day, dateNow.Hour, 0, 0);
+            // dateNow = dateNow.AddHours(1);
             AirQuality air = new AirQuality()
             {
                 PointId = Guid.Parse((string)jObject["id"]),
-                DateTime = dateTime1,
+                DateTime = dateTime.AddHours(-1),
                 Humidity = (float)jObject["humidity"],
                 Temperature = (float)jObject["temperature"],
                 O3 = (float)jObject["O3"],
@@ -87,8 +89,8 @@ namespace AirQualityService.Services
         {
             Console.WriteLine("connected");
 
-            //string payload = "{\"ID\":\"12\"}";
-            //await PublishAsync(MQTTClientSettings.instance.TopicPublish, payload, "json");
+            string payload = "{\"ID\":\"12\"}";
+            await PublishAsync(MQTTClientSettings.instance.TopicPublish, payload, "json");
 
             var result = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder()
                                                         .WithTopic(MQTTClientSettings.instance.TopicSubscribe)
@@ -100,10 +102,17 @@ namespace AirQualityService.Services
         {
             try
             {
-                mqttClient.UseDisconnectedHandler(x =>
+
+                var tsk = mqttClient.ReconnectAsync();
+                tsk.Start();
+                if (mqttClient.IsConnected)
                 {
-                    Console.WriteLine("hbhbg" + x.Exception.Message);
-                });
+                    mqttClient.UseDisconnectedHandler(x =>
+                    {
+                        Console.WriteLine("hbhbg" + x.Exception.Message);
+                    });
+                }
+
             }
             catch (Exception e)
             {
@@ -126,11 +135,18 @@ namespace AirQualityService.Services
             }
 
 
-
-            if (!mqttClient.IsConnected)
+            try
             {
-                await mqttClient.ReconnectAsync();
+                if (!mqttClient.IsConnected)
+                {
+                    await mqttClient.ReconnectAsync();
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Reconnection error: " + ex);
+            }
+
         }
 
         public async Task StopAsync(CancellationToken cancellationToken)
@@ -155,11 +171,13 @@ namespace AirQualityService.Services
                                                                     .WithContentType(contentType)
                                                                     .WithPayload(payload)
                                                                     .WithTopic(topic)
-                                                                    .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.AtMostOnce);
+                                                                    .WithQualityOfServiceLevel(MQTTnet.Protocol.MqttQualityOfServiceLevel.ExactlyOnce);
 
 
                 var result = await mqttClient.PublishAsync(messageBuilder.Build());
+
                 Console.WriteLine(result.ReasonString);
+
             }
         }
     }

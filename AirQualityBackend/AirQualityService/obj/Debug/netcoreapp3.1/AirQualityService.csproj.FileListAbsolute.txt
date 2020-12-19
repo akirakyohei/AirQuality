@@ -138,3 +138,15 @@
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.IdentityModel.Tokens.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/System.IdentityModel.Tokens.Jwt.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/obj/Debug/netcoreapp3.1/scopedcss/bundle/AirQualityService.styles.css
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.NodeServices.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.SpaServices.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.AspNetCore.SpaServices.Extensions.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Abstractions.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Configuration.Binder.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Abstractions.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileProviders.Physical.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.FileSystemGlobbing.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Console.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll

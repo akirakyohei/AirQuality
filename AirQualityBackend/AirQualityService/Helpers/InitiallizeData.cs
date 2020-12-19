@@ -63,6 +63,7 @@ namespace AirQualityService.Helpers
                 _airQualityContext.CreateCollection("Point");
 
             }
+
             if (!_airQualityContext.CheckCollectionExist("ReportAirQualityByDate"))
             {
                 _airQualityContext.CreateCollection("ReportAirQualityByDate");
