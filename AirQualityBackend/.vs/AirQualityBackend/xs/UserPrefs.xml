@@ -1,0 +1,67 @@
+﻿<Properties StartupConfiguration="{4F49FE7E-187C-4D70-8733-DE4DD2F80D03}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Startup.cs">
+    <Files>
+      <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" Line="9" Column="6" />
+      <File FileName="AirQualityService/ViewModels/PointAirQualityVM.cs" />
+      <File FileName="AirQualityService/Data/Interface/ICityReporitory.cs" />
+      <File FileName="AirQualityService/Data/Interface/IReportAirQualityInDayRepository.cs" />
+      <File FileName="AirQualityService/ViewModels/AirQualityVM.cs" />
+      <File FileName="AirQualityService/Controllers/CityController.cs" />
+      <File FileName="AirQualityService/ViewModels/CityDetailVM.cs" />
+      <File FileName="AirQualityService/ViewModels/CityVM.cs" />
+      <File FileName="AirQualityService/ViewModels/JobSchedule.cs" />
+      <File FileName="AirQualityService/ViewModels/PointDetailVM.cs" />
+      <File FileName="AirQualityService/ViewModels/PointVM.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IFullTextSearchHelper.cs" />
+      <File FileName="AirQualityService/Helpers/FullTextSearchHelper.cs" />
+      <File FileName="AirQualityService/Services/Interface/IMqttClientService.cs" />
+      <File FileName="AirQualityService/Services/Interface/IMqttClientPublishMesage.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IIBMClientHelper.cs" />
+      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" />
+      <File FileName="AirQualityService/Controllers/ManagementDeviceController.cs" />
+      <File FileName="AirQualityService/ViewModels/LoginModel.cs" />
+      <File FileName="AirQualityService/Controllers/AuthController.cs" />
+      <File FileName="AirQualityService/Data/CityRepository.cs" />
+      <File FileName="AirQualityService/Setting/Options/CommandDevice.cs" />
+      <File FileName="AirQualityService/Services/ExtarmalService.cs" />
+      <File FileName="AirQualityService/Data/AirQualityContext.cs" />
+      <File FileName="AirQualityService/Startup.cs" Line="55" Column="73" />
+      <File FileName="AirQualityService/appsettings.json" />
+      <File FileName="AirQualityService/Helpers/InitiallizeData.cs" />
+      <File FileName="AirQualityService/Properties/launchSettings.json" />
+      <File FileName="AirQualityService/Data/AirQualityRepository.cs" />
+      <File FileName="AirQualityService/Data/PointRepository.cs" />
+      <File FileName="AirQualityService/Model/AirQuality.cs" />
+      <File FileName="AirQualityService/Model/Point.cs" />
+      <File FileName="AirQualityService/Setting/MQTTClientSettings.cs" />
+      <File FileName="AirQualityService/Services/MqttClientService.cs" />
+      <File FileName="AirQualityService/Helpers/ServiceCollectionExtension.cs" />
+      <File FileName="AirQualityService/Setting/AirQualityDatabaseSettings.cs" />
+      <File FileName="AirQualityService/Model/AwakeUpDeviceJob.cs" />
+      <File FileName="AirQualityService/Services/MqttClientServiceProvider.cs" />
+      <File FileName="AirQualityService/Model/ReportEndDayJob.cs" />
+      <File FileName="AirQualityService/Program.cs" />
+      <File FileName="AirQualityService/Controllers/AirQualityController.cs" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="AirQualityBackend" expanded="True">
+            <Node name="AirQualityService" expanded="True">
+              <Node name="Controllers" expanded="True" />
+              <Node name="Model" expanded="True" />
+              <Node name="Startup.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.ItemProperties.AirQualityService PreferredExecutionTarget="/Applications/Google Chrome.app" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>
