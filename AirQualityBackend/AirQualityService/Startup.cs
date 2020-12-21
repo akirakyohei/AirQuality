@@ -51,7 +51,7 @@ namespace AirQualityService
         [Obsolete]
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddControllersWithViews();
             //services.AddMvc(opt => opt.EnableEndpointRouting = false);
             services.AddMqttClientHostedService();
             services.AddScoped<ExtarmalService>();
@@ -67,10 +67,10 @@ namespace AirQualityService
 
             });
 
-            //services.AddSpaStaticFiles(config =>
-            //{
-            //    config.RootPath = "AirApp";
-            //});
+            services.AddSpaStaticFiles(config =>
+            {
+                config.RootPath = "AirApp";
+            });
 
             services.AddCors();
             services.AddAuthentication(opt =>
@@ -162,19 +162,24 @@ namespace AirQualityService
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Air Quality API Version1");
             });
 
-            //app.UseSpa(config =>
-            //{
-            //    config.Options.SourcePath = Path.Join(env.ContentRootPath, "./../../AirApp");
-            //    if (env.IsDevelopment())
-            //    {
-            //        config.UseAngularCliServer(npmScript: "start");
-            //    }
-            //});
-
-
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                //endpoints.MapControllers();
+                endpoints.MapControllerRoute(
+                   name: "default",
+                   pattern: "{controller}/{action=Index}/{id?}");
+            });
+
+            app.UseSpa(config =>
+            {
+                config.Options.SourcePath = Path.Join(env.ContentRootPath, "AirApp");
+                Console.WriteLine(config.Options.SourcePath);
+                config.Options.StartupTimeout = new TimeSpan(0, 5, 0);
+                if (env.IsDevelopment())
+                {
+
+                    config.UseAngularCliServer(npmScript: "start");
+                }
             });
         }
     }

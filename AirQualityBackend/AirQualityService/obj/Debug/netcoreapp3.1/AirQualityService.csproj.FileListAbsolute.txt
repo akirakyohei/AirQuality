@@ -152,3 +152,14 @@
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/BCrypt.Net-Next.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/.angulardoc.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/angular.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/e2e/tsconfig.e2e.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/package-lock.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/package.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/src/assets/data/marker.test.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/src/tsconfig.app.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/src/tsconfig.spec.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/src/tslint.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/tsconfig.json
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/AirApp/tslint.json
