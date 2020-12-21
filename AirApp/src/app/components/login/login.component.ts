@@ -9,13 +9,18 @@ import { NgForm } from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  constructor(private authService:AuthService) { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  login(form:NgForm){
+  login(form: NgForm) {
     this.authService.login(form);
+  }
+
+  isShowPassword = false;
+  toggleShowPassword() {
+    this.isShowPassword = !this.isShowPassword;
   }
 
 }

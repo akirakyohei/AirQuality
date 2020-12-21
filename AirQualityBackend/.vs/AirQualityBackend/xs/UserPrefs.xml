@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4F49FE7E-187C-4D70-8733-DE4DD2F80D03}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Controllers/PointController.cs">
     <Files>
       <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" Line="9" Column="6" />
       <File FileName="AirQualityService/ViewModels/PointAirQualityVM.cs" />
@@ -25,7 +25,7 @@
       <File FileName="AirQualityService/Setting/Options/CommandDevice.cs" />
       <File FileName="AirQualityService/Services/ExtarmalService.cs" />
       <File FileName="AirQualityService/Data/AirQualityContext.cs" />
-      <File FileName="AirQualityService/Startup.cs" Line="55" Column="73" />
+      <File FileName="AirQualityService/Startup.cs" />
       <File FileName="AirQualityService/appsettings.json" />
       <File FileName="AirQualityService/Helpers/InitiallizeData.cs" />
       <File FileName="AirQualityService/Properties/launchSettings.json" />
@@ -42,15 +42,27 @@
       <File FileName="AirQualityService/Model/ReportEndDayJob.cs" />
       <File FileName="AirQualityService/Program.cs" />
       <File FileName="AirQualityService/Controllers/AirQualityController.cs" />
+      <File FileName="AirQualityService/Helpers/interface/IRsaHelper.cs" />
+      <File FileName="AirQualityService/Helpers/RsaHelper.cs" />
+      <File FileName="AirQualityService/keys/posvendor.key.pem" />
+      <File FileName="AirQualityService/keys/posvendor.pub.pem" />
+      <File FileName="AirQualityService/Model/Account.cs" />
+      <File FileName="AirQualityService/Data/Interface/IAirQualityRepository.cs" />
+      <File FileName="AirQualityService/Data/ReportAirQualityRepository.cs" />
+      <File FileName="AirQualityService/Data/AccountRepository.cs" />
+      <File FileName="AirQualityService/ViewModels/AccountVM.cs" />
+      <File FileName="AirQualityService/Data/Interface/IAccountRepository.cs" />
+      <File FileName="AirQualityService/Controllers/PointController.cs" Line="1" Column="1" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
           <Node name="AirQualityBackend" expanded="True">
             <Node name="AirQualityService" expanded="True">
-              <Node name="Controllers" expanded="True" />
-              <Node name="Model" expanded="True" />
-              <Node name="Startup.cs" selected="True" />
+              <Node name="Controllers" expanded="True">
+                <Node name="PointController.cs" selected="True" />
+              </Node>
+              <Node name="ViewModels" expanded="True" />
             </Node>
           </Node>
         </State>

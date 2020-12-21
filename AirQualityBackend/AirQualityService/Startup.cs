@@ -102,6 +102,7 @@ namespace AirQualityService
             services.AddSingleton<IAirQualityRepository, AirQualityRepository>();
             services.AddSingleton<IPointRepository, PointRepository>();
             services.AddSingleton<IReportAirQualityInDayRepository, ReportAirQualityRepository>();
+            services.AddSingleton<IAccountRepository, AccountRepository>();
             services.AddSingleton<IAQIHelper, AQIHelper>();
             services.AddTransient<IInitiallizeData, InitiallizeData>();
 
@@ -110,6 +111,7 @@ namespace AirQualityService
             services.AddSingleton<ISchedulerFactory, StdSchedulerFactory>();
             services.AddSingleton<AwakeUpDeviceJob>();
             services.AddSingleton<ReportEndDayJob>();
+            services.AddSingleton<IRsaHelper, RsaHelper>();
             services.AddSingleton(new JobSchedule(
                 jobType: typeof(AwakeUpDeviceJob),
                 //cronExpression: "0 0 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23 ? * * *"
@@ -162,7 +164,7 @@ namespace AirQualityService
 
             //app.UseSpa(config =>
             //{
-            //    config.Options.SourcePath = Path.Join(env.ContentRootPath, "./../AirApp");
+            //    config.Options.SourcePath = Path.Join(env.ContentRootPath, "./../../AirApp");
             //    if (env.IsDevelopment())
             //    {
             //        config.UseAngularCliServer(npmScript: "start");

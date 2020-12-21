@@ -47,6 +47,10 @@
               "target": "Package",
               "version": "[8.1.0, )"
             },
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.0.2, )"
+            },
             "MQTTnet.AspNetCore": {
               "target": "Package",
               "version": "[3.0.13, )"
@@ -98,6 +102,10 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[12.0.3, )"
+            },
+            "Portable.BouncyCastle": {
+              "target": "Package",
+              "version": "[1.8.9, )"
             },
             "Quartz": {
               "target": "Package",

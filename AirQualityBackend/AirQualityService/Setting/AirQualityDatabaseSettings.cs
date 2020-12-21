@@ -9,6 +9,7 @@ namespace AirQualityService.Setting
         string ConnectionString { get; set; }
         string DatabaseName { get; set; }
         string ReportAirQualityByDate { get; set; }
+        string Account { get; set; }
 
     }
 
@@ -20,5 +21,6 @@ namespace AirQualityService.Setting
         public string ConnectionString { get; set; }
         public string DatabaseName { get; set; }
         public string ReportAirQualityByDate { get; set; }
+        public string Account { get; set; }
     }
 }

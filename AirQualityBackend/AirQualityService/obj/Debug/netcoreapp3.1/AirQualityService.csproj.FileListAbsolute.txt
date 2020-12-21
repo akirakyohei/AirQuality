@@ -150,3 +150,5 @@
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Configuration.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Logging.Console.dll
 /Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/Microsoft.Extensions.Options.ConfigurationExtensions.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/BCrypt.Net-Next.dll
+/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/bin/Debug/netcoreapp3.1/BouncyCastle.Crypto.dll

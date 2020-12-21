@@ -14,13 +14,17 @@
                             <div class="input-group-prepend">
                                 <i class="fas fa-user icon-login mr-2" aria-hidden="true"></i>
                             </div>
-                            <input type="text" name="username" ngModel class="form-control rounded w-50" placeholder="Usename" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                            <input type="text" name="username" value="" ngModel class="form-control rounded w-50" placeholder="Usename" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
                         </div>
                         <div class="input-group mb-3">
                             <div class="input-group-prepend">
                                 <i class="fas fa-key icon-login mr-2" aria-hidden="true"></i>
                             </div>
-                            <input type="password" name="password" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                            <input [type]="!isShowPassword?'password':'text'" name="password" value="" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                            <div class="input-group-append">
+                                <i (click)="toggleShowPassword()" [ngClass]="!isShowPassword?'fa fa-lock input-group-text':'fa
+                                                  fa-lock-open input-group-text'" aria-hidden="true"></i>
+                            </div>
                         </div>
 
 

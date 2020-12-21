@@ -57,6 +57,14 @@ namespace AirQualityService.Data
             }
         }
 
+        public IMongoCollection<Account> Account
+        {
+            get
+            {
+                return _database.GetCollection<Account>(_setting.Account);
+            }
+        }
+
         public Boolean CheckCollectionExist(string name)
         {
 

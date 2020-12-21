@@ -8,14 +8,14 @@ import { GoogleMapsModule } from '@angular/google-maps';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxGaugeModule } from 'ngx-gauge';
-import {JwtModule} from '@auth0/angular-jwt';
+import { JwtModule } from '@auth0/angular-jwt';
 import { NgxProgressHttpModule } from '@kken94/ngx-progress';
 import { AnimateOnScrollModule } from 'ng2-animate-on-scroll';
 import { NgxEchartsModule } from 'ngx-echarts';
 
 import { LazyLoadImageModule, LAZYLOAD_IMAGE_HOOKS, ScrollHooks } from 'ng-lazyload-image';
 import { FormsModule } from '@angular/forms';
-import {NgSelectModule} from '@ng-select/ng-select';
+import { NgSelectModule } from '@ng-select/ng-select';
 import localeVi from '@angular/common/locales/vi';
 // tslint:disable-next-line: no-use-before-declare
 registerLocaleData(localeVi);
@@ -36,15 +36,17 @@ import { LinearGaugeComponent } from './components/detail-marker/linear-gauge/li
 import { LineChartComponent } from './components/detail-marker/line-chart/line-chart.component';
 import { HttpconfigInterceptor } from "./services/httpconfig.interceptor";
 import { DatePipe, registerLocaleData } from '@angular/common';
-import {NgxNotifierModule, NgxNotifierService} from 'ngx-notifier';
-import {Ng2SmartTableModule} from 'ng2-smart-table';
+import { NgxNotifierModule, NgxNotifierService } from 'ngx-notifier';
+import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { AdminModule } from './admin/admin.module';
 import { AuthGuard } from './services/auth.guard';
 import { AuthService } from './services/auth.service';
 import { AdminRoutingModule } from './admin/admin-routing.module';
 import { SidebarModule } from 'ng-sidebar';
+import { RsaCypherService } from './services/rsa-cypher.service';
+import { LogDeviceService } from './services/log-device.service';
 
-export function tokenGetter(){
+export function tokenGetter() {
   return localStorage.getItem('jwt');
 }
 
@@ -74,13 +76,13 @@ export function tokenGetter(){
     NgxGaugeModule,
     NgxProgressHttpModule,
     AnimateOnScrollModule.forRoot(),
-    NgxEchartsModule.forRoot({echarts:import('echarts')}),
+    NgxEchartsModule.forRoot({ echarts: import('echarts') }),
     LazyLoadImageModule,
     NgSelectModule,
     FormsModule,
     JwtModule.forRoot({
-      config:{
-        tokenGetter:tokenGetter,
+      config: {
+        tokenGetter: tokenGetter,
       }
     }),
     AdminModule,
@@ -89,17 +91,19 @@ export function tokenGetter(){
     NgxNotifierModule,
     SidebarModule.forRoot()
   ],
-  providers: [{provide:LAZYLOAD_IMAGE_HOOKS,useClass:ScrollHooks},
-              {provide:HTTP_INTERCEPTORS,useClass:HttpconfigInterceptor,multi:true},
-              {provide:LOCALE_ID,useValue:'vi'},
-              PlacesService,
-              ReportAqiService,
-              ColorAqiService,
-              DatePipe,
-              AuthService,
-              PointService,
-              NgxNotifierService,
-              AuthGuard],
+  providers: [{ provide: LAZYLOAD_IMAGE_HOOKS, useClass: ScrollHooks },
+  { provide: HTTP_INTERCEPTORS, useClass: HttpconfigInterceptor, multi: true },
+  { provide: LOCALE_ID, useValue: 'vi' },
+    PlacesService,
+    ReportAqiService,
+    ColorAqiService,
+    DatePipe,
+    AuthService,
+    PointService,
+    NgxNotifierService,
+    RsaCypherService,
+    LogDeviceService,
+    AuthGuard],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule { }

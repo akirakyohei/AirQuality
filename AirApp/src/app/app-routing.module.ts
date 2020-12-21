@@ -12,20 +12,20 @@ import { AdminComponent } from './admin/admin.component';
 import { AuthGuard } from './services/auth.guard';
 
 const routes: Routes = [
-  {path: '', redirectTo: 'home', pathMatch: 'full'},
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
   { path: 'places', component: PlacesComponent },
   { path: 'about', component: AboutComponent },
   { path: 'information', component: InformationComponent },
-  {path:'detail-marker',component:DetailMarkerComponent},
+  { path: 'detail-marker', component: DetailMarkerComponent },
   { path: 'login', component: LoginComponent },
-{path:'admin',loadChildren:()=>import('./admin/admin.module').then(m=>m.AdminModule),canActivate:[AuthGuard]},
-  {path: '**', component:PageNotFoundComponent}
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule), canActivate: [AuthGuard] },
+  { path: '**', component: PageNotFoundComponent }
 
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes, { relativeLinkResolution: 'legacy' })],
- exports: [RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule { }

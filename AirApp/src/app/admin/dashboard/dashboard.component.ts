@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
 import { Point } from '../../models/point';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { PointService } from 'src/app/services/point.service';
 import { NgxNotifierService } from 'ngx-notifier';
+import { LogDeviceService } from 'src/app/services/log-device.service';
+import { GoogleMap } from '@angular/google-maps';
 
 
 @Component({
@@ -14,14 +16,14 @@ import { NgxNotifierService } from 'ngx-notifier';
 })
 export class DashboardComponent implements OnInit {
   showEditModal = false;
-  showResultAdd=false;
-  resultAdd:any={
-    deviceId:'',
-    token:''
+  showResultAdd = false;
+  resultAdd: any = {
+    deviceId: '',
+    token: ''
   }
-  selectedPoint:any ={};
-  addPoint:Point=new Point();
-  listCities:any;
+  selectedPoint: any = {};
+  addPoint: Point = new Point();
+  listCities: any;
 
   settings = {
     columns: {
@@ -65,7 +67,7 @@ export class DashboardComponent implements OnInit {
     },
     delete: {
       deleteButtonContent: '<i class="fa fa-trash" aria-hidden="true"></i>',
-      confirmDelete:true
+      confirmDelete: true
     },
     noDataMessage: 'Not data found',
     filter: {
@@ -77,17 +79,51 @@ export class DashboardComponent implements OnInit {
     }
   }
   source: LocalDataSource;
+  dataLog: any;
+  idDeviceLog: any;
 
-  constructor(private pointService:PointService,private ngxNotifierService:NgxNotifierService, private http: HttpClient) {
-   pointService.getPointList().subscribe((data:any[])=>{
-     console.log(data);
-  this.source = new LocalDataSource(data);
-   })
+  @ViewChild('googlemapAdd', { static: true }) public googleMap: GoogleMap;
+  markerLocal: google.maps.Marker;
+
+  zoom = 12;
+  center: google.maps.LatLngLiteral;
+
+  options: google.maps.MapOptions = {
+    //  mapTypeId: 'hybrid',
+    zoomControl: true,
+    scrollwheel: true,
+    disableDoubleClickZoom: true,
+    mapTypeControl: true,
+    maxZoom: 15,
+    minZoom: 5,
+    center: new google.maps.LatLng(21.039005939041772, 105.83822167275451)
+  };
+
+  mapClick(event: google.maps.MouseEvent) {
+    console.log(event.latLng.lat());
+    this.addPoint.lat = event.latLng.lat().toString(),
+      this.addPoint.lng = event.latLng.lng().toString()
+    this.markerLocal.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+  }
+
+  constructor(private pointService: PointService, private ngxNotifierService: NgxNotifierService, private http: HttpClient, private logService: LogDeviceService) {
+    pointService.getPointList().subscribe((data: any[]) => {
+      console.log(data);
+      this.source = new LocalDataSource(data);
+    })
 
   }
 
   ngOnInit(): void {
-this.getNameCities();
+    this.getNameCities();
+    this.markerLocal = new google.maps.Marker({
+      position: this.center,
+      draggable: true,
+      animation: google.maps.Animation.DROP,
+      title: '',
+      map: this.googleMap.googleMap
+    });
+
   }
   onSearch(query: string = '') {
     this.source.setFilter([
@@ -134,26 +170,26 @@ this.getNameCities();
 
     //  // Update the local datasource
     //  this.source = new LocalDataSource(this.data);
-    this.pointService.removePoint(event.data.pointId).subscribe(data=>{
+    this.pointService.removePoint(event.data.pointId).subscribe(data => {
       console.log(data);
     });
     this.source.remove(event.data);
   }
-  pointTemp:any;
+  pointTemp: any;
   onEdit(e) {
     this.selectedPoint = e.data;
-    this.pointTemp=this.selectedPoint;
+    this.pointTemp = this.selectedPoint;
     console.log(e.data);
     this.showEditModal = true;
   }
   Edit() {
 
-    this.source.update(this.pointTemp,this.selectedPoint);
-    this.pointService.updatePoint(this.selectedPoint,this.selectedPoint.pointId).subscribe(
-      result=>{
-        this.ngxNotifierService.createToast('update succes!','success');
-      },error=>{
-        this.ngxNotifierService.createToast('Update error','danger');
+    this.source.update(this.pointTemp, this.selectedPoint);
+    this.pointService.updatePoint(this.selectedPoint, this.selectedPoint.pointId).subscribe(
+      result => {
+        this.ngxNotifierService.createToast('update succes!', 'success');
+      }, error => {
+        this.ngxNotifierService.createToast('Update error', 'danger');
       }
     )
   }
@@ -162,6 +198,7 @@ this.getNameCities();
   }
   getLocation() {
     navigator.geolocation.getCurrentPosition((position) => {
+
 
       (
         this.selectedPoint.lat = position.coords.latitude.toString(),
@@ -180,7 +217,8 @@ this.getNameCities();
 
       (
         this.addPoint.lat = position.coords.latitude.toString(),
-        this.addPoint.lng = position.coords.longitude.toString()
+        this.addPoint.lng = position.coords.longitude.toString(),
+        this.markerLocal.setPosition(new google.maps.LatLng(position.coords.latitude, position.coords.longitude))
       )
         ,
         (error: any) => {
@@ -194,49 +232,49 @@ this.getNameCities();
   getNameCities() {
     this.http.get(environment.uri + '/api/City/listName').subscribe((data: JSON) => {
       console.log(data);
-      this.listCities=data;
+      this.listCities = data;
     }, error => {
       console.error(error)
     })
   }
-  onAddPoint(){
-if((!this.isFloat(this.addPoint.lat))||(!this.isFloat(this.addPoint.lng))||this.addPoint.lat.length===0||this.addPoint.lng.length===0){
-  this.ngxNotifierService.createToast('Latitude or Longitude must be number','danger');
-  return;
-}
-if((this.addPoint.pointName.length===0)){
-  this.ngxNotifierService.createToast('Location Name can\'t not empty','danger');
-  return;
-}
-if((this.addPoint.city.length===0)){
-  this.ngxNotifierService.createToast('City can\'t not empty','danger');
-  return;
-}
+  onAddPoint() {
+    if ((!this.isFloat(this.addPoint.lat)) || (!this.isFloat(this.addPoint.lng)) || this.addPoint.lat.length === 0 || this.addPoint.lng.length === 0) {
+      this.ngxNotifierService.createToast('Latitude or Longitude must be number', 'danger');
+      return;
+    }
+    if ((this.addPoint.pointName.length === 0)) {
+      this.ngxNotifierService.createToast('Location Name can\'t not empty', 'danger');
+      return;
+    }
+    if ((this.addPoint.city.length === 0)) {
+      this.ngxNotifierService.createToast('City can\'t not empty', 'danger');
+      return;
+    }
 
-   let object={
+    let object = {
       pointId: '',
       cityName: this.addPoint.city,
       nameLocation: this.addPoint.pointName,
       address: this.addPoint.pointAddress,
       lat: this.addPoint.lat,
-      lng:this.addPoint.lng
+      lng: this.addPoint.lng
     }
-    this.pointService.addPoint(object).subscribe((data:any)=>{
+    this.pointService.addPoint(object).subscribe((data: any) => {
       this.source.add(data.point);
-      let messIbm=data.ibmResult;
-      let jsonMess=JSON.parse(messIbm);
+      let messIbm = data.ibmResult;
+      let jsonMess = JSON.parse(messIbm);
       console.log(messIbm);
       console.log(jsonMess);
       console.log(jsonMess[0].success)
-      if(jsonMess[0].success){
-        this.resultAdd= {
-          deviceId:jsonMess[0].deviceId,
-          token:jsonMess[0].authToken
+      if (jsonMess[0].success) {
+        this.resultAdd = {
+          deviceId: jsonMess[0].deviceId,
+          token: jsonMess[0].authToken
         }
-        this.showResultAdd=true;
-        this.ngxNotifierService.createToast(' Registered device!','success');
-      }else{
-        this.ngxNotifierService.createToast(' Error register device!','danger');
+        this.showResultAdd = true;
+        this.ngxNotifierService.createToast(' Registered device!', 'success');
+      } else {
+        this.ngxNotifierService.createToast(' Error register device!', 'danger');
       }
 
       console.log(jsonMess);
@@ -245,26 +283,44 @@ if((this.addPoint.city.length===0)){
   }
 
   refresh() {
-    this.pointService.getPointList().subscribe((data:any[])=>{
+    this.pointService.getPointList().subscribe((data: any[]) => {
       console.log(data);
-   this.source = new LocalDataSource(data);
+      this.source = new LocalDataSource(data);
     })
   }
-  copied(event,type){
+  copied(event, type) {
     console.log(event);
-this.ngxNotifierService.createToast(type+ ' copied!','info');
+    this.ngxNotifierService.createToast(type + ' copied!', 'info');
   }
-  copyerror(event,type){
+  copyerror(event, type) {
     console.log(event);
-    this.ngxNotifierService.createToast(type+'copy error!','danger');
+    this.ngxNotifierService.createToast(type + 'copy error!', 'danger');
   }
-  notifiertion(){
-    this.ngxNotifierService.createToast('jhnj','info');
+  notifiertion() {
+    this.ngxNotifierService.createToast('jhnj', 'info');
   }
-  closeResultAdd(){
-    this.showResultAdd=false;
+  closeResultAdd() {
+    this.showResultAdd = false;
   }
   isFloat(n) {
-    return parseFloat(n.match(/^-?\d*(\.\d+)?$/))>0;
+    return parseFloat(n.match(/^-?\d*(\.\d+)?$/)) > 0;
+  }
+
+  clickRow(events) {
+
+    this.logService.LogConnection(events.data.pointId).subscribe(data => {
+
+      console.log(data.log);
+      this.dataLog = JSON.parse(data.log.result);
+      this.idDeviceLog = events.data.pointId;
+
+    }, err => {
+      console.log(err);
+    });
+
+  }
+
+
+
 }
-}
+

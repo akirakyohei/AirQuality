@@ -63,6 +63,12 @@
                                                     </div>
 
                                                 </div>
+                                                <div class="row mx-2 mt-3">
+                                                    <google-map #googlemapAdd id="googlemapAdd" height="10rem" width="25rem" [center]="center" [zoom]="zoom" [options]="options" (mapClick)="mapClick($event)">
+                                                        <map-marker [position]="markerLocal.getPosition()">
+                                                        </map-marker>
+                                                    </google-map>
+                                                </div>
                                                 <div class="result border-top mt-3" [hidden]="!showResultAdd">
                                                     <table #tableResult class="table table-light  bg-info">
                                                         <tbody>
@@ -105,7 +111,7 @@
                     </div>
 
                 </div>
-                <ng2-smart-table [settings]="settings" (delete)="onDelete($event)" (edit)="onEdit($event)" [source]="source" class=" table-responsive-lg table-striped  table-point-admin table-hover table-bordered bg-dark ">
+                <ng2-smart-table (rowSelect)="clickRow($event)" [settings]="settings" (delete)="onDelete($event)" (edit)="onEdit($event)" [source]="source" class=" table-responsive-lg table-striped  table-point-admin table-hover table-bordered bg-dark ">
                 </ng2-smart-table>
             </div>
         </div>
@@ -178,5 +184,8 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <app-log [data]="dataLog" [id]="idDeviceLog"></app-log>
     </div>
 </div>

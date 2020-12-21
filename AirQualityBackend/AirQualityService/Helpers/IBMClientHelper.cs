@@ -68,7 +68,53 @@ namespace AirQualityService.Helpers
                 Console.WriteLine(responseString);
                 return responseString;
             }
-            Console.WriteLine("njj");
+
+            return "";
+        }
+
+        public async Task<string> LogConnection(string deviceId)
+        {
+            var param = "?typeId=NodeMcu&deviceId=" + deviceId;
+            var request = new HttpRequestMessage(HttpMethod.Get, "https://f4vt93.internetofthings.ibmcloud.com/api/v0002/logs/connection" + param)
+            {
+
+            };
+
+            request.Headers.Add("Authorization", "Basic YS1mNHZ0OTMtOWRlZHljbW1hazpUVTUpQVJaN3FmQ3dGQ00mKHg=");
+
+
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseString);
+                return responseString;
+            }
+
+            return "";
+        }
+
+        public async Task<string> LogDiagDevice(string deviceId)
+        {
+            var url = "https://f4vt93.internetofthings.ibmcloud.com/api/v0002/device/types/NodeMcu/devices/" + deviceId + "/diag/logs";
+            var request = new HttpRequestMessage(HttpMethod.Get, url)
+            {
+
+            };
+
+            request.Headers.Add("Authorization", "Basic YS1mNHZ0OTMtOWRlZHljbW1hazpUVTUpQVJaN3FmQ3dGQ00mKHg=");
+
+
+            var client = _clientFactory.CreateClient();
+            var response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+            {
+                var responseString = await response.Content.ReadAsStringAsync();
+                Console.WriteLine(responseString);
+                return responseString;
+            }
+
             return "";
         }
     }

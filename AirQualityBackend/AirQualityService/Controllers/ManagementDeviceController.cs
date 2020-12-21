@@ -61,5 +61,20 @@ namespace AirQualityService.Controllers
             _pointRepository.UpdatePoint(point, new Guid(id));
             return Ok();
         }
+
+        [HttpGet("Log/Connection"), Authorize(Roles = "Manager")]
+        public ActionResult LogConnection([FromQuery] string deviceId)
+        {
+
+            var logs = _IBMClientHelper.LogConnection(deviceId);
+            return Ok(new { log = logs });
+
+        }
+        [HttpGet("Log/Dialog"), Authorize(Roles = "Manager")]
+        public ActionResult LogDialog([FromQuery] string deviceId)
+        {
+            var logs = _IBMClientHelper.LogDiagDevice(deviceId);
+            return Ok(new { log = logs });
+        }
     }
 }

@@ -1,0 +1,111 @@
+<div class="container-fluid">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6 ">
+
+            <div class="card text-center">
+                <div class="card-header">
+                    Account
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-6">
+                                <img src="../../../assets/tenor.gif" />
+                            </div>
+                            <div class="col-6">
+                                <div class="h3">
+                                    Hello, Administrator!
+                                </div>
+                                <table class="table table-light">
+                                    <tbody>
+                                        <tr>
+                                            <td>Contact Ibm Cloud Foundry apps</td>
+                                            <td>
+                                                <a href="https://cloud.ibm.com/apps/ff3380ec-4ace-4471-a097-e06bcdaddbd7?ace_config=%7B%22region%22%3A%22us-south%22%2C%22crn%22%3A%22crn%3Av1%3Abluemix%3Apublic%3Acf%3Aus-south%3As%2F26a414af-1056-4f5c-8d8f-33d2c168c0d4%3A%3Acf-application%3Aff3380ec-4ace-4471-a097-e06bcdaddbd7%22%2C%22resource_id%22%3A%22ff3380ec-4ace-4471-a097-e06bcdaddbd7%22%2C%22orgGuid%22%3A%2246afab4b-3287-411c-9268-206d645f5ab0%22%2C%22spaceGuid%22%3A%2226a414af-1056-4f5c-8d8f-33d2c168c0d4%22%2C%22redirect%22%3A%22https%3A%2F%2Fcloud.ibm.com%2Fresources%22%2C%22bluemixUIVersion%22%3A%22v6%22%7D&env_id=ibm%3Ayp%3Aus-south&paneId=overview"><i class="fas fa-angle-double-right"></i></a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Contact IBM Watson IoT Platform</td>
+                                            <td>
+                                                <a href="https://f4vt93.internetofthings.ibmcloud.com/dashboard/devices/browse">
+                                                    <i class="fas fa-angle-double-right" aria-hidden="true"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#my-modal">Edit Account
+            Login</button>
+                    <div id="my-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="my-modal-title" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="my-modal-title">Edit</h5>
+                                    <button class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                  </button>
+                                </div>
+                                <form #accountForm="ngForm" (ngSubmit)="updateAccount(accountForm)">
+
+                                    <div class="card-body">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend" style="width:10rem">
+                                                User Name
+                                            </div>
+                                            <input type="text" name="username" value="" ngModel class="form-control rounded w-50" placeholder="Usename" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend" style="width:10rem">
+                                                New Password
+                                            </div>
+                                            <input [type]="!isShowNewPassword?'password':'text'" name="newPassword" value="" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                                            <div class="input-group-append">
+                                                <i (click)="toggleShowNewPassword()" [ngClass]="!isShowNewPassword?'fa fa-lock input-group-text':'fa
+                                                  fa-lock-open input-group-text'" aria-hidden="true"></i>
+                                            </div>
+
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend" style="width:10rem">
+                                                Confirm Password
+                                            </div>
+                                            <input [type]="!isShowConfirmPassword?'password':'text'" name="confirmPassword" value="" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                                            <div class="input-group-append">
+                                                <i (click)="toggleShowConfirmPassword()" [ngClass]="!isShowConfirmPassword?'fa fa-lock input-group-text':'fa
+                                                  fa-lock-open input-group-text'" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend" style="width:10rem">
+                                                Old Password
+                                            </div>
+                                            <input [type]="!isShowOldPassword?'password':'text'" name="oldPassword" value="" ngModel class="form-control rounded w-50" placeholder="Password" aria-label="Example text with button addon" aria-describedby="button-addon1" required autofocus>
+                                            <div class="input-group-append">
+                                                <i (click)="toggleShowOldPassword()" [ngClass]="!isShowOldPassword?'fa fa-lock input-group-text':'fa
+                                                  fa-lock-open input-group-text'" aria-hidden="true"></i>
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+                                    <div class="card-footer">
+                                        <div class="btn-group d-flex justify-content-center">
+                                            <button [disabled]="!checkform(accountForm)" class="btn btn-primary" type="submit">Update</button>
+                                            <button class="btn btn-secondary" data-dismiss="modal">Back</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

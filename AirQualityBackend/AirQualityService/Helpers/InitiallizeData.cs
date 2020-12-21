@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using AirQualityService.Data;
+using AirQualityService.Helpers.@interface;
 using AirQualityService.Model;
 using AirQualityService.Setting;
 using MongoDB.Driver;
@@ -26,11 +27,9 @@ namespace AirQualityService.Helpers
     {
         private readonly AirQualityContext _airQualityContext;
 
-
         public InitiallizeData(AirQualityContext airQualityContext)
         {
             _airQualityContext = airQualityContext;
-
         }
 
         [Obsolete]
@@ -51,6 +50,19 @@ namespace AirQualityService.Helpers
                     cities.Add(city);
                 }
                 await _airQualityContext.Cities.InsertManyAsync(cities);
+            }
+
+            if (!_airQualityContext.CheckCollectionExist("Account"))
+            {
+                _airQualityContext.CreateCollection("Account");
+
+                Account account = new Account()
+                {
+                    Username = "admin",
+                    Password = BCrypt.Net.BCrypt.HashPassword("admin"),
+                    Modified = DateTime.Now
+                };
+                _airQualityContext.Account.InsertOne(account);
             }
 
             if (!_airQualityContext.CheckCollectionExist("AirQuality"))

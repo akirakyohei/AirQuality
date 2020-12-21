@@ -40,6 +40,8 @@
     "ngx-echarts": "^5.1.2",
     "ngx-gauge": "^1.1.0",
     "ngx-notifier": "^6.0.0",
+    "ngx-pagination": "^5.0.0",
+    "node-forge": "^0.10.0",
     "rxjs": "~6.6.3",
     "tslib": "^1.9.0",
     "zone.js": "~0.10.3"

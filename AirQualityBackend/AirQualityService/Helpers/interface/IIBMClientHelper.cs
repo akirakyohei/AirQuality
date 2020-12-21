@@ -8,5 +8,9 @@ namespace AirQualityService.Helpers.@interface
         public Task<string> registerDevice(string deviceId);
 
         public Task<string> removeDevice(string deviceId);
+
+        public Task<string> LogConnection(string deviceId);
+
+        public Task<string> LogDiagDevice(string deviceId);
     }
 }

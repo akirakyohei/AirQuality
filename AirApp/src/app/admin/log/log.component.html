@@ -1,0 +1,44 @@
+<nav aria-label="Page breadcrumb mx-4">
+    <ol class="breadcrumb">
+        <li class="breadcrumb-item active" aria-current="page">Log Connection </li>
+        <li class="breadcrumb-item " aria-current="page">{{id}}</li>
+    </ol>
+    <button type="button" (click)="refresh()" class="btn btn-warning ">refresh</button>
+</nav>
+
+<div class="container-fluid" style="width:100vw">
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-6">
+            <div *ngIf="!isEmpty;else elesData">
+                Not
+            </div>
+            <ng-template #elesData>
+                <div class="list">
+                    <table class="table table-light table-striped table-bordered">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Message</th>
+                                <th>TimeStamp</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let item of data| paginate: { itemsPerPage: 20, currentPage: p }">
+                                <td>
+                                    {{item.message}}
+                                </td>
+                                <td>{{item.timestamp}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                    <div *ngIf="data&&data.length>0">
+
+                        <pagination-controls class="pagination justify-content-center" (pageChange)="p = $event">
+                        </pagination-controls>
+                    </div>
+                </div>
+
+            </ng-template>
+        </div>
+    </div>
+</div>

@@ -28,6 +28,8 @@
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="3.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices" Version="3.1.10" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.10" />
+    <PackageReference Include="Portable.BouncyCastle" Version="1.8.9" />
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.2" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Setting\" />
@@ -40,5 +42,6 @@
     <Folder Include="Services\Interface\" />
     <Folder Include="Resourse\" />
     <Folder Include="Helpers\interface\" />
+    <Folder Include="keys\" />
   </ItemGroup>
 </Project>

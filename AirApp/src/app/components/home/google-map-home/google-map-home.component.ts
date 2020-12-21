@@ -22,7 +22,6 @@ import { isUndefined } from 'util';
 export class GoogleMapHomeComponent implements OnInit {
   @ViewChild('googlemap', { static: true }) public googleMap: GoogleMap;
 
-
   zoom = 12;
   center: google.maps.LatLngLiteral;
 
