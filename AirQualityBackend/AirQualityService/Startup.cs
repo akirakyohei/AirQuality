@@ -151,7 +151,7 @@ namespace AirQualityService
             app.UseHttpsRedirection();
 
             app.UseRouting();
-            app.UseCors(config => { config.AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
+            app.UseCors(config => { config.WithOrigins("http://localhost:4200").AllowAnyHeader().AllowAnyMethod().AllowAnyOrigin(); });
             app.UseAuthentication();
             app.UseAuthorization();
 
@@ -170,17 +170,17 @@ namespace AirQualityService
                    pattern: "{controller}/{action=Index}/{id?}");
             });
 
-            app.UseSpa(config =>
-            {
-                config.Options.SourcePath = Path.Join(env.ContentRootPath, "AirApp");
-                Console.WriteLine(config.Options.SourcePath);
-                config.Options.StartupTimeout = new TimeSpan(0, 5, 0);
-                if (env.IsDevelopment())
-                {
+            //app.UseSpa(config =>
+            //{
+            //    config.Options.SourcePath = Path.Join(env.ContentRootPath, "AirApp");
+            //    Console.WriteLine(config.Options.SourcePath);
+            //    config.Options.StartupTimeout = new TimeSpan(0, 5, 0);
+            //    if (env.IsDevelopment())
+            //    {
 
-                    config.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //        config.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
         }
     }
 }

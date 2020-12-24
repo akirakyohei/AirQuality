@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  // uri:'https://localhost:5001'
-  uri: 'https://airquality.us-south.cf.appdomain.cloud'
+  uri: 'https://localhost:5001'
+  // uri: 'https://airquality.us-south.cf.appdomain.cloud'
 
 
 };

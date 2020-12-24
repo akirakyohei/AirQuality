@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4F49FE7E-187C-4D70-8733-DE4DD2F80D03}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Startup.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Helpers/IBMClientHelper.cs">
     <Files>
       <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" Line="9" Column="6" />
       <File FileName="AirQualityService/ViewModels/PointAirQualityVM.cs" />
@@ -17,7 +17,7 @@
       <File FileName="AirQualityService/Services/Interface/IMqttClientService.cs" />
       <File FileName="AirQualityService/Services/Interface/IMqttClientPublishMesage.cs" />
       <File FileName="AirQualityService/Helpers/interface/IIBMClientHelper.cs" />
-      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" />
+      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" Line="103" Column="1" />
       <File FileName="AirQualityService/Controllers/ManagementDeviceController.cs" />
       <File FileName="AirQualityService/ViewModels/LoginModel.cs" />
       <File FileName="AirQualityService/Controllers/AuthController.cs" />
@@ -25,7 +25,7 @@
       <File FileName="AirQualityService/Setting/Options/CommandDevice.cs" />
       <File FileName="AirQualityService/Services/ExtarmalService.cs" />
       <File FileName="AirQualityService/Data/AirQualityContext.cs" />
-      <File FileName="AirQualityService/Startup.cs" Line="175" Column="77" />
+      <File FileName="AirQualityService/Startup.cs" />
       <File FileName="AirQualityService/appsettings.json" />
       <File FileName="AirQualityService/Helpers/InitiallizeData.cs" />
       <File FileName="AirQualityService/Properties/launchSettings.json" />
@@ -57,11 +57,7 @@
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="AirQualityBackend" expanded="True">
-            <Node name="AirQualityService" expanded="True">
-              <Node name="Startup.cs" selected="True" />
-            </Node>
-          </Node>
+          <Node name="AirQualityBackend" expanded="True" selected="True" />
         </State>
       </Pad>
     </Pads>
