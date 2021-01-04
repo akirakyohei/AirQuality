@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "Arq8i/eFYXCTdIzsL6P0Y2Yu0hcptoyIAvwLLxJtu+u36RkmGsYrEca3YwnJRbl4CARPg4y/K3e4QZLsvnwAJA==",
+  "dgSpecHash": "XtPcGSGrx+nKhO/Tf6YtmlVuc2Ipvd4YqkFfyYviLLdZz/Q95LXQ/D0cDJlPEI9tCk89Cha4MNdJ/NQsYUjmrw==",
   "success": true,
   "projectFilePath": "/Volumes/libraries/Iot/AirQualityBackend/AirQualityService/AirQualityService.csproj",
   "expectedPackageFiles": [

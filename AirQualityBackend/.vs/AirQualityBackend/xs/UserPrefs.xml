@@ -1,5 +1,5 @@
 ﻿<Properties StartupConfiguration="{4F49FE7E-187C-4D70-8733-DE4DD2F80D03}|Default">
-  <MonoDevelop.Ide.Workbench ActiveDocument="AirQualityService/Helpers/IBMClientHelper.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="../../../../usr/local/share/dotnet/sdk/5.0.100/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets">
     <Files>
       <File FileName="AirQualityService/Data/Interface/IPointRepository.cs" Line="9" Column="6" />
       <File FileName="AirQualityService/ViewModels/PointAirQualityVM.cs" />
@@ -17,7 +17,7 @@
       <File FileName="AirQualityService/Services/Interface/IMqttClientService.cs" />
       <File FileName="AirQualityService/Services/Interface/IMqttClientPublishMesage.cs" />
       <File FileName="AirQualityService/Helpers/interface/IIBMClientHelper.cs" />
-      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" Line="103" Column="1" />
+      <File FileName="AirQualityService/Helpers/IBMClientHelper.cs" />
       <File FileName="AirQualityService/Controllers/ManagementDeviceController.cs" />
       <File FileName="AirQualityService/ViewModels/LoginModel.cs" />
       <File FileName="AirQualityService/Controllers/AuthController.cs" />
@@ -53,11 +53,15 @@
       <File FileName="AirQualityService/ViewModels/AccountVM.cs" />
       <File FileName="AirQualityService/Data/Interface/IAccountRepository.cs" />
       <File FileName="AirQualityService/Controllers/PointController.cs" />
+      <File FileName="AirQualityService/Helpers/AQIHelper.cs" />
+      <File FileName="../../../../usr/local/share/dotnet/sdk/5.0.100/Sdks/Microsoft.NET.Sdk/targets/Microsoft.PackageDependencyResolution.targets" Line="241" Column="27" />
     </Files>
     <Pads>
       <Pad Id="ProjectPad">
         <State name="__root__">
-          <Node name="AirQualityBackend" expanded="True" selected="True" />
+          <Node name="AirQualityBackend" expanded="True" selected="True">
+            <Node name="AirQualityService" expanded="True" />
+          </Node>
         </State>
       </Pad>
     </Pads>
